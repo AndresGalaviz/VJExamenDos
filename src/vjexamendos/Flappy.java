@@ -12,7 +12,7 @@ import java.awt.Toolkit;
  *
  * @author AndresG
  */
-public class Pelota extends Base {
+public class Flappy extends Base {
     
     private double vx;
     private double vy;
@@ -28,7 +28,7 @@ public class Pelota extends Base {
      * @param posX coordenada x inicial.
      * @param posY coordenada y inicial.
      */
-    public Pelota(int posX, int posY) {
+    public Flappy(int posX, int posY) {
         super(posX, posY, crearAnimacionPelota());
         x = posX;
         y = posY;
@@ -37,7 +37,7 @@ public class Pelota extends Base {
     }
 
     /**
-     * <code>Pelota</code> reaparece en su posicion original.
+     * <code>Flappy</code> reaparece en su posicion original.
      */
     public void reaparecer() {
         setDoublePosX(x);
@@ -46,7 +46,7 @@ public class Pelota extends Base {
     }
     
     /**
-     * Inicia el movimiento de <code>Pelota<code>.
+     * Inicia el movimiento de <code>Flappy<code>.
      */
     public void lanzar() {
         mov = true;
@@ -124,7 +124,7 @@ public class Pelota extends Base {
     }
     
     /**
-     * Regresa si <code>Pelota</code> esta en movimiento o no
+     * Regresa si <code>Flappy</code> esta en movimiento o no
      * @return true o false
      */
     public boolean getMov() {
@@ -180,7 +180,7 @@ public class Pelota extends Base {
     private static Animacion crearAnimacionPelota() {
         Animacion anim = new Animacion();
         for (int i = 0; i <= 20; i++) {
-            anim.sumaCuadro (Toolkit.getDefaultToolkit ().getImage (Pelota.class.getResource ("Images/ball/basketball" + i + ".png")), 60);
+            anim.sumaCuadro (Toolkit.getDefaultToolkit ().getImage (Flappy.class.getResource ("Images/ball/basketball" + i + ".png")), 60);
         }
         return anim;
     }

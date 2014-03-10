@@ -16,7 +16,8 @@ public class VJExamenDos {
      * @param args the command line arguments
      */
     public static void main (String[] args) {
-        // TODO code application logic here
+        JFrameFlappy flappy = new JFrameFlappy();
+        flappy.setVisible(true);
     }
     
 }
