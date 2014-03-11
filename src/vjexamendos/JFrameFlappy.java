@@ -26,8 +26,8 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
     private static final long serialVersionUID = 1L;
     private static final String nombreArchivo = "score.txt";
     private String[] arr;    //Arreglo del archivo divido.
-    private Pelota pelota;
-    private Canasta canasta;
+    private Flappy flappy;
+    private Vector<Pipe> pipes;
     private boolean pausa;
     private boolean instrucciones;
     private boolean entrando;
@@ -70,9 +70,10 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
         addMouseListener(this);
         Base.setW(getWidth());
         Base.setH(getHeight());
-        pelota = new Pelota(0, 0);
-        pelota.setX(getWidth() / 5 - pelota.getAncho());
-        pelota.setY(getHeight() / 2 - pelota.getAlto());
+        flappy = new Flappy(0, 0);
+        flappy.setX(getWidth() / 5 - flappy.getAncho());
+        flappy.setY(getHeight() / 2 - flappy.getAlto());
+        pipes = new Vector();
         canasta = new Canasta(0, 0);
         canasta.setPosX((int) (Math.random() * (getWidth() / 2 - canasta.getAncho())) + getWidth() / 2);
         canasta.setPosY(getHeight() - 3 * canasta.getAlto() / 2);
@@ -166,7 +167,7 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
         score = Integer.parseInt(arr[2]);
         caidas = Integer.parseInt(arr[3]);
         entrando = Boolean.parseBoolean(arr[4]);
-        pelota.assingData(arr);
+        flappy.assingData(arr);
         canasta.assignData(arr);
         sound = Boolean.parseBoolean(arr[14]);
         fileIn.close();
@@ -184,7 +185,7 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
             try {
                 PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
 
-                fileOut.println(String.valueOf(pausa) + "," + String.valueOf(vidas) + "," + String.valueOf(score) + "," + String.valueOf(caidas) + "," + String.valueOf(entrando) + "," + pelota.getData() + "," + canasta.getData() + "," + String.valueOf(sound));
+                fileOut.println(String.valueOf(pausa) + "," + String.valueOf(vidas) + "," + String.valueOf(score) + "," + String.valueOf(caidas) + "," + String.valueOf(entrando) + "," + flappy.getData() + "," + canasta.getData() + "," + String.valueOf(sound));
                 fileOut.close();
             } catch (FileNotFoundException e) {
 
@@ -210,15 +211,15 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
             canasta.setPosX(canasta.getPosX() + 4);
         }
 
-        pelota.avanza();
+        flappy.avanza();
         if (entrando) {
-            pelota.setPosX(canasta.getPosX() + canasta.getAncho() / 2 - pelota.getAncho() / 2);
+            flappy.setPosX(canasta.getPosX() + canasta.getAncho() / 2 - flappy.getAncho() / 2);
         }
 
         //Actualiza la animación en base al tiempo transcurrido
         canasta.actualiza(tiempoTranscurrido);
-        if (pelota.getMov()) {
-            pelota.actualiza(tiempoTranscurrido);
+        if (flappy.getMov()) {
+            flappy.actualiza(tiempoTranscurrido);
         }
     }
 
@@ -234,11 +235,11 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
             canasta.setPosX(getWidth() - canasta.getAncho());
         }
 
-        if (pelota.getPosY() > getHeight() + 10) {
+        if (flappy.getPosY() > getHeight() + 10) {
             if (!entrando && sound) {
                 shoot.play();
             }
-            pelota.reaparecer();
+            flappy.reaparecer();
             if (entrando) {
                 entrando = false;
             } else {
@@ -250,7 +251,7 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
             }
         }
 
-        if (pelota.intersectaCentroSup(canasta) && !entrando) {
+        if (flappy.intersectaCentroSup(canasta) && !entrando) {
             score += 2;
             if (sound) {
                 bang.play();
@@ -299,9 +300,9 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
         //g.fillRect(0, 0, getWidth(), getHeight());
         // Muestra en pantalla el cuadro actual de la animación
         g.drawImage(background, 0, 0, this);    // Imagen de background
-        if (pelota != null && pelota.getImagenI() != null) {
+        if (flappy != null && flappy.getImagenI() != null) {
 
-            g.drawImage(pelota.getImagenI(), pelota.getPosX(), pelota.getPosY(), this);
+            g.drawImage(flappy.getImagenI(), flappy.getPosX(), flappy.getPosY(), this);
         }
 
         if (canasta != null && canasta.getImagenI() != null) {
@@ -348,10 +349,10 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
         } else if (e.getKeyCode() == KeyEvent.VK_P) {
             if (!pausa) {
                 pausa = true;
-                pelota.freeze();
+                flappy.freeze();
             } else {
                 pausa = false;
-                pelota.unfreeze();
+                flappy.unfreeze();
             }
         } else if (e.getKeyCode() == KeyEvent.VK_C) {
 
@@ -389,10 +390,10 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
         } else if (e.getKeyCode() == KeyEvent.VK_I) {
             if (!instrucciones) {
                 instrucciones = true;
-                pelota.freeze();
+                flappy.freeze();
             } else {
                 instrucciones = false;
-                pelota.unfreeze();
+                flappy.unfreeze();
             }
 
         }
@@ -405,8 +406,8 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (!pelota.getMov() && pelota.contiene(e.getX(), e.getY())) {
-            pelota.lanzar();
+        if (!flappy.getMov() && flappy.contiene(e.getX(), e.getY())) {
+            flappy.lanzar();
         }
     }
 

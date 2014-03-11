@@ -14,14 +14,11 @@ import java.awt.Toolkit;
  */
 public class Flappy extends Base {
     
-    private double vx;
-    private double vy;
-    private double x;
-    private double y;
+    private int vy;
+    private int x;
+    private int y;
     private boolean mov;
-    private long startTime;
-    private long freezeTime;
-    private static double aceleracion = 200;
+    private static final int G = 3;
     
     /**
      * Metodo constructor.
@@ -29,10 +26,9 @@ public class Flappy extends Base {
      * @param posY coordenada y inicial.
      */
     public Flappy(int posX, int posY) {
-        super(posX, posY, crearAnimacionPelota());
+        super(posX, posY, crearAnimacionFlappy());
         x = posX;
         y = posY;
-        freezeTime = System.currentTimeMillis();
         reaparecer();
     }
 
@@ -40,8 +36,8 @@ public class Flappy extends Base {
      * <code>Flappy</code> reaparece en su posicion original.
      */
     public void reaparecer() {
-        setDoublePosX(x);
-        setDoublePosY(y);
+        setPosX(x);
+        setPosY(y);
         mov = false;
     }
     
@@ -50,13 +46,7 @@ public class Flappy extends Base {
      */
     public void lanzar() {
         mov = true;
-        startTime = System.currentTimeMillis();
-        double maxVy = .94*getMaxVy();
-        double minVy = .3*maxVy;
-        vy = Math.random()*(maxVy - minVy) + minVy;
-        double maxVx = .97*getVx(getW() - getAncho() + 10, getH() - getAlto());
-        double minVx = getVx(getW()/2 + 20, getH() - 2*getAlto());
-        vx = Math.random()*(maxVx - minVx) + minVx;
+        vy = 10;
     }
     
     /**
@@ -64,41 +54,9 @@ public class Flappy extends Base {
      */
     public void avanza() {
         if (mov) {
-            double time = (double)(System.currentTimeMillis() - startTime)/1000;
-            setDoublePosX(x + vx * time);
-            setDoublePosY(y - (vy*time - 0.5*aceleracion*time*time));
+            setPosX(getPosX() - vy);
+            vy -= G;
         }
-    }
-    /**
-     * La pelota se mueve de acuerdo al tiempo, velocidad en X y Y, y gravedad.
-     */
-    public void freeze() {
-        freezeTime = System.currentTimeMillis();
-    }
-    
-    public void unfreeze() {
-        startTime += System.currentTimeMillis() - freezeTime;
-    }
-    
-    /**
-     * Regresa el mayor valor de vy para que el objeto no se salga por la
-     * parte superior del <code>JFrame</code>
-     * @return un <code>double</code>.
-     */
-    private double getMaxVy() {
-        return Math.sqrt(2*y*aceleracion);
-    }
-    
-    /**
-     * Regresa el valor de vx necesario para que la pelota llegue al punto
-     * (posX, posY) dado el valor actual de vy y aceleracion.
-     * @param posX coordenada x del punto deseado
-     * @param posY coordenada y del punto deseado
-     * @return 
-     */
-    private double getVx(double posX, double posY) {
-        double t = (vy + Math.sqrt(vy*vy - 2*aceleracion*(y - posY)))/aceleracion;
-        return (posX-x)/t;
     }
     
     /**
@@ -177,7 +135,7 @@ public class Flappy extends Base {
      * Crea la animación de la pelota para el constructor
      * @return un objeto de tipo <code>Animacion</code>
      */
-    private static Animacion crearAnimacionPelota() {
+    private static Animacion crearAnimacionFlappy() {
         Animacion anim = new Animacion();
         for (int i = 0; i <= 20; i++) {
             anim.sumaCuadro (Toolkit.getDefaultToolkit ().getImage (Flappy.class.getResource ("Images/ball/basketball" + i + ".png")), 60);
