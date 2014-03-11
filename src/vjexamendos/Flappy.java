@@ -96,6 +96,7 @@ public class Flappy extends Base {
     public void setX(int X) {
         x = X;
         setPosX(X);
+        
     }
     
     /**
