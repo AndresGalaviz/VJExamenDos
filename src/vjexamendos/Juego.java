@@ -21,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 
-public class JFrameFlappy extends JFrame implements Runnable, KeyListener, MouseListener {
+public class Juego extends JFrame implements Runnable, KeyListener, MouseListener {
 
     private static final long serialVersionUID = 1L;
     private static final String nombreArchivo = "score.txt";
@@ -30,13 +30,8 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
     private Vector<Pipe> pipes;
     private boolean pausa;
     private boolean instrucciones;
-    private boolean entrando;
     private boolean sound;
-    private int vidas;
     private int score;
-    private int caidas;
-    private long tiempo;
-    private long tMensaje;
     private Image dbImage;
     private Image background;
     private Image gameover;
@@ -52,7 +47,7 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
     /**
      * Método constructor de la clase <code>JFrameExamen</code>.
      */
-    public JFrameFlappy() {
+    public Juego() {
         setTitle("Examen");
         setSize(1100, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,9 +69,6 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
         flappy.setX(getWidth() / 5 - flappy.getAncho());
         flappy.setY(getHeight() / 2 - flappy.getAlto());
         pipes = new Vector();
-        canasta = new Canasta(0, 0);
-        canasta.setPosX((int) (Math.random() * (getWidth() / 2 - canasta.getAncho())) + getWidth() / 2);
-        canasta.setPosY(getHeight() - 3 * canasta.getAlto() / 2);
         background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background/background.jpg"));
         pause = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/pause.png"));
         instructionBack = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background/instrucciones.jpg"));
@@ -84,13 +76,8 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
 
         pausa = false;
         instrucciones = false;
-        entrando = false;
         sound = true;
-        tMensaje = 500;
-        tiempo = System.currentTimeMillis() - tMensaje - 1;
-        vidas = 5;
         score = 0;
-        caidas = 0;
         //Pinta el fondo del Applet de color blanco
         setBackground(Color.white);
         shoot = new SoundClip("Sounds/failS.wav");
@@ -359,7 +346,7 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
             try {
                 leeArchivo();
             } catch (IOException ex) {
-                Logger.getLogger(JFrameFlappy.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
             sound = !sound;
@@ -383,7 +370,7 @@ public class JFrameFlappy extends JFrame implements Runnable, KeyListener, Mouse
                 try {
                     grabaArchivo();
                 } catch (IOException ex) {
-                    Logger.getLogger(JFrameFlappy.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 

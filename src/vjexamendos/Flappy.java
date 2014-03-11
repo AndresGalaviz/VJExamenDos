@@ -18,7 +18,7 @@ public class Flappy extends Base {
     private int x;
     private int y;
     private boolean mov;
-    private static final int G = 3;
+    private static int g = 3;
     
     /**
      * Metodo constructor.
@@ -55,7 +55,7 @@ public class Flappy extends Base {
     public void avanza() {
         if (mov) {
             setPosX(getPosX() - vy);
-            vy -= G;
+            vy -= g;
         }
     }
     
@@ -96,7 +96,6 @@ public class Flappy extends Base {
     public void setX(int X) {
         x = X;
         setPosX(X);
-        
     }
     
     /**
@@ -109,27 +108,19 @@ public class Flappy extends Base {
     }
     
     /**
-     * Establece el valor de vx
-     * @param v un <code>double</code>
-     */
-    public void setVx(double v) {
-        vx = v;
-    }
-    
-    /**
      * Establece el valor de la gravedad
-     * @param a un valor de tipo <code>double</code>
+     * @param a un valor de tipo <code>int</code>
      */
-    public static void setAceleracion(double a) {
-        aceleracion = a;
+    public static void setG(int a) {
+        g = a;
     }
     
     /**
      * Regresa el valor de la gravedad
-     * @return <code>aceleracion</code>
+     * @return <code>g</code>
      */
-    public static double getAceleracion() {
-        return aceleracion;
+    public static double getG() {
+        return g;
     }
     
     /**

@@ -27,7 +27,7 @@ public class Pipe {
      * @param posY es la <code>posicion en y</code> del objeto.
      * @param image es la <code>imagen</code> del objeto.
      */
-    public Pipe(int posX, int posY, Image image) {
+    public Pipe(int posX, Image image) {
         this.posX = posX;
         this.posY = posY;
         icono = new ImageIcon(image);
