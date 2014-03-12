@@ -69,6 +69,14 @@ public class PipeSet {
         }
     }
     
+    public Pipe getUpPipe() {
+        return upPipe;
+    }
+    
+    public Pipe getDownPipe() {
+        return downPipe;
+    }
+    
     public static int getSpeed() {
         return speed;
     }
