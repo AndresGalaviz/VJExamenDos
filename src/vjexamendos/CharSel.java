@@ -37,7 +37,7 @@ public class CharSel implements MouseListener {
 //        SELECTION = new Boton(0, 0, "Images/Faces/rect.png");
         PERSONAJES = new Boton[2];
         for (int i = 0; i < 2; i++) {
-            PERSONAJES[i] = new Boton((2*i-1)*Base.getW()/4, 2*Base.getH()/5, "Images/Faces/choice" + i + ".png");
+            PERSONAJES[i] = new Boton((2*i+1)*Base.getW()/4, Base.getH()/2, "Images/Faces/choice" + i + ".png");
             PERSONAJES[i].setPosX(PERSONAJES[i].getPosX() - PERSONAJES[i].getAncho()/2);
             PERSONAJES[i].setPosY(PERSONAJES[i].getPosY() - PERSONAJES[i].getAlto()/2);
         }
