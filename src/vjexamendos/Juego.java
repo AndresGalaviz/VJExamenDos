@@ -47,7 +47,8 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
 
     public static enum STATE {
         CHARSEL,
-        GAME
+        GAME,
+        GAMEOVER,
     };
     public static STATE State;
     public static int distX;
@@ -360,15 +361,17 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        if (State == STATE.GAME) {
-            if (e.getKeyCode() == KeyEvent.VK_SPACE && fish.getInside()) {
-                fish.lanzar();
-            } else if (e.getKeyCode() == KeyEvent.VK_P) {
-                pausa = !pausa;
-            } else if (e.getKeyCode() == KeyEvent.VK_S) {
-                sound = !sound;
+        if(!lost) {
+            if (State == STATE.GAME) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE && fish.getInside()) {
+                    fish.lanzar();
+                } else if (e.getKeyCode() == KeyEvent.VK_P) {
+                    pausa = !pausa;
+                } else if (e.getKeyCode() == KeyEvent.VK_S) {
+                    sound = !sound;
+                }
             }
-        }
+        } 
         
     }
 
@@ -382,12 +385,15 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (State == STATE.GAME) {
-            if (fish.getInside()) {
-                fish.lanzar();
+        if(!lost) {
+
+            if (State == STATE.GAME) {
+                if (fish.getInside()) {
+                    fish.lanzar();
+                }
+            } else {
+                charSel.mouseClicked(e);
             }
-        } else {
-            charSel.mouseClicked(e);
         }
     }
 
