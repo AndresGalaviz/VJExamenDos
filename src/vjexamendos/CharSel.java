@@ -31,15 +31,15 @@ public class CharSel implements MouseListener {
 //        PLAY = new Boton(Base.getW()/3, 4*Base.getH()/5, "Images/Buttons/play.png");
 //        PLAY.setPosX(PLAY.getPosX() - PLAY.getAncho()/2);
 //        PLAY.setPosY(PLAY.getPosY() - PLAY.getAlto()/2);
-        QUIT = new Boton(Base.getW()/2, 5*Base.getH()/6, "Images/Buttons/return.png");
+        QUIT = new Boton(Base.getW()/2, 5*Base.getH()/6, "Images/Buttons/quit.png");
         QUIT.setPosX(QUIT.getPosX() - QUIT.getAncho()/2);
         QUIT.setPosY(QUIT.getPosY() - QUIT.getAlto()/2);
 //        SELECTION = new Boton(0, 0, "Images/Faces/rect.png");
         PERSONAJES = new Boton[2];
-        for (int i = 1; i <= 2; i++) {
-            PERSONAJES[i-1] = new Boton((2*i-1)*Base.getW()/4, 2*Base.getH()/5, "Images/Faces/choice" + i + ".jpg");
-            PERSONAJES[i-1].setPosX(PERSONAJES[i-1].getPosX() - PERSONAJES[i-1].getAncho()/2);
-            PERSONAJES[i-1].setPosY(PERSONAJES[i-1].getPosY() - PERSONAJES[i-1].getAlto()/2);
+        for (int i = 0; i < 2; i++) {
+            PERSONAJES[i] = new Boton((2*i-1)*Base.getW()/4, 2*Base.getH()/5, "Images/Faces/choice" + i + ".png");
+            PERSONAJES[i].setPosX(PERSONAJES[i].getPosX() - PERSONAJES[i].getAncho()/2);
+            PERSONAJES[i].setPosY(PERSONAJES[i].getPosY() - PERSONAJES[i].getAlto()/2);
         }
     }
     

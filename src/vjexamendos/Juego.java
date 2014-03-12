@@ -62,7 +62,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      */
     public Juego() {
         setTitle("FlappyMemilio");
-        setSize(1600, 900);
+        setSize(800, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         init();
         start();
