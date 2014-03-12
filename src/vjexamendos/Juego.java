@@ -161,53 +161,53 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
 
     }
 
-    /**
-     * Metodo que agrega la informacion del vector al archivo.
-     *
-     * @throws IOException
-     */
-    public void grabaArchivo() throws IOException {
-        //guarda cuando no se encuentra en instrucciones
-        if (!instrucciones) {
-            try {
-                PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
-
-                fileOut.println(String.valueOf(pausa) + "," + String.valueOf(vidas) + "," + String.valueOf(score) + "," + String.valueOf(caidas) + "," + String.valueOf(entrando) + "," + flappy.getData() + "," + canasta.getData() + "," + String.valueOf(sound));
-                fileOut.close();
-            } catch (FileNotFoundException e) {
-
-            }
-        }
-    }
+//    /**
+//     * Metodo que agrega la informacion del vector al archivo.
+//     *
+//     * @throws IOException
+//     */
+//    public void grabaArchivo() throws IOException {
+//        //guarda cuando no se encuentra en instrucciones
+//        if (!instrucciones) {
+//            try {
+//                PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
+//
+//                fileOut.println(String.valueOf(pausa) + "," + String.valueOf(vidas) + "," + String.valueOf(score) + "," + String.valueOf(caidas) + "," + String.valueOf(entrando) + "," + flappy.getData() + "," + canasta.getData() + "," + String.valueOf(sound));
+//                fileOut.close();
+//            } catch (FileNotFoundException e) {
+//
+//            }
+//        }
+//    }
 
     /**
      * El método actualiza() actualiza la animación
      */
     public void actualiza() {
 
-        //Determina el tiempo que ha transcurrido desde que el Applet inicio su ejecución
-        long tiempoTranscurrido = System.currentTimeMillis() - tiempoActual;
-
-        //Guarda el tiempo actual
-        tiempoActual += tiempoTranscurrido;
-
-        if (canasta.getMoveLeft()) {
-            canasta.setPosX(canasta.getPosX() - 4);
-        }
-        if (canasta.getMoveRight()) {
-            canasta.setPosX(canasta.getPosX() + 4);
-        }
+//        //Determina el tiempo que ha transcurrido desde que el Applet inicio su ejecución
+//        long tiempoTranscurrido = System.currentTimeMillis() - tiempoActual;
+//
+//        //Guarda el tiempo actual
+//        tiempoActual += tiempoTranscurrido;
+//
+//        if (canasta.getMoveLeft()) {
+//            canasta.setPosX(canasta.getPosX() - 4);
+//        }
+//        if (canasta.getMoveRight()) {
+//            canasta.setPosX(canasta.getPosX() + 4);
+//        }
 
         flappy.avanza();
-        if (entrando) {
-            flappy.setPosX(canasta.getPosX() + canasta.getAncho() / 2 - flappy.getAncho() / 2);
-        }
-
-        //Actualiza la animación en base al tiempo transcurrido
-        canasta.actualiza(tiempoTranscurrido);
-        if (flappy.getMov()) {
-            flappy.actualiza(tiempoTranscurrido);
-        }
+//        if (entrando) {
+//            flappy.setPosX(canasta.getPosX() + canasta.getAncho() / 2 - flappy.getAncho() / 2);
+//        }
+//
+//        //Actualiza la animación en base al tiempo transcurrido
+//        canasta.actualiza(tiempoTranscurrido);
+//        if (flappy.getMov()) {
+//            flappy.actualiza(tiempoTranscurrido);
+//        }
     }
 
     /**
@@ -215,29 +215,31 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      * del <code>Applet</code> y entre si.
      */
     public void checaColision() {
-        if (canasta.getPosX() < getWidth() / 2) {
-            canasta.setPosX(getWidth() / 2);
-        }
-        if (canasta.getPosX() + canasta.getAncho() > getWidth()) {
-            canasta.setPosX(getWidth() - canasta.getAncho());
-        }
+//        if (canasta.getPosX() < getWidth() / 2) {
+//            canasta.setPosX(getWidth() / 2);
+//        }
+//        if (canasta.getPosX() + canasta.getAncho() > getWidth()) {
+//            canasta.setPosX(getWidth() - canasta.getAncho());
+//        }
 
-        if (flappy.getPosY() > getHeight() + 10) {
-            if (!entrando && sound) {
-                shoot.play();
-            }
-            flappy.reaparecer();
-            if (entrando) {
-                entrando = false;
-            } else {
-                caidas++;
-                if (caidas % 3 == 0) {
-                    vidas--;
-                    Pelota.setAceleracion(Pelota.getAceleracion() + 400);
-                }
-            }
+//        if (flappy.getPosY() > getHeight() + 10) {
+//            if (!entrando && sound) {
+//                shoot.play();
+//            }
+//            flappy.reaparecer();
+//            if (entrando) {
+//                entrando = false;
+//            } else {
+//                caidas++;
+//                if (caidas % 3 == 0) {
+//                    vidas--;
+//                    Pelota.setAceleracion(Pelota.getAceleracion() + 400);
+//                }
+//            }
+//        }
+        if (flappy.getPosY() <= getHeight()) {
+            game
         }
-
         if (flappy.intersectaCentroSup(canasta) && !entrando) {
             score += 2;
             if (sound) {
@@ -304,18 +306,18 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
 
         g.setColor(Color.green);
         g.drawString("Score: " + score, 20, 55);
-        g.setColor(Color.blue);
-        g.drawString("Caídas: " + caidas, 20, 80);
-        g.setColor(Color.red);
-        g.drawString("Vidas: " + vidas, 20, 105);
-        if (instrucciones) {
-            setBackground(Color.black);
-            g.drawImage(instructionBack, 0, 0, this);    // Imagen de instrucciones
-        }
-        if (vidas <= 0) {
-            pausa = true;
-            g.drawImage(gameover, 0, 0, this);    // Imagen de instrucciones
-        }
+//        g.setColor(Color.blue);
+//        g.drawString("Caídas: " + caidas, 20, 80);
+//        g.setColor(Color.red);
+//        g.drawString("Vidas: " + vidas, 20, 105);
+//        if (instrucciones) {
+//            setBackground(Color.black);
+//            g.drawImage(instructionBack, 0, 0, this);    // Imagen de instrucciones
+//        }
+//        if (vidas <= 0) {
+//            pausa = true;
+//            g.drawImage(gameover, 0, 0, this);    // Imagen de instrucciones
+//        }
     }
 
     @Override
@@ -329,28 +331,33 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            canasta.setMoveLeft(true);
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            canasta.setMoveRight(true);
-        } else if (e.getKeyCode() == KeyEvent.VK_P) {
-            if (!pausa) {
-                pausa = true;
-                flappy.freeze();
-            } else {
-                pausa = false;
-                flappy.unfreeze();
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_C) {
-
-            try {
-                leeArchivo();
-            } catch (IOException ex) {
-                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_S) {
-            sound = !sound;
-        }
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            //canasta.serBrinco(true);
+        }        
+        
+        
+//        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+//            canasta.setMoveLeft(true);
+//        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+//            canasta.setMoveRight(true);
+//        } else if (e.getKeyCode() == KeyEvent.VK_P) {
+//            if (!pausa) {
+//                pausa = true;
+//                flappy.freeze();
+//            } else {
+//                pausa = false;
+//                flappy.unfreeze();
+//            }
+//        } else if (e.getKeyCode() == KeyEvent.VK_C) {
+//
+//            try {
+//                leeArchivo();
+//            } catch (IOException ex) {
+//                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } else if (e.getKeyCode() == KeyEvent.VK_S) {
+//            sound = !sound;
+//        }
 
     }
 
@@ -361,29 +368,35 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      */
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            canasta.setMoveLeft(false);
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            canasta.setMoveRight(false);
-        } else if (e.getKeyCode() == KeyEvent.VK_G) {
-            if (!instrucciones) {
-                try {
-                    grabaArchivo();
-                } catch (IOException ex) {
-                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-        } else if (e.getKeyCode() == KeyEvent.VK_I) {
-            if (!instrucciones) {
-                instrucciones = true;
-                flappy.freeze();
-            } else {
-                instrucciones = false;
-                flappy.unfreeze();
-            }
-
+        
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            //canasta.serBrinco(false);
         }
+//        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+//            canasta.setMoveLeft(false);
+//        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+//            canasta.setMoveRight(false);
+//        } 
+//        else if (e.getKeyCode() == KeyEvent.VK_G) {
+//            if (!instrucciones) {
+//                try {
+//                    grabaArchivo();
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//
+//        } 
+//        else if (e.getKeyCode() == KeyEvent.VK_I) {
+//            if (!instrucciones) {
+//                instrucciones = true;
+//                flappy.freeze();
+//            } else {
+//                instrucciones = false;
+//                flappy.unfreeze();
+//            }
+//
+//        }
     }
 
     /**
@@ -393,9 +406,14 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (!flappy.getMov() && flappy.contiene(e.getX(), e.getY())) {
-            flappy.lanzar();
-        }
+        
+        
+        //canasta.serBrinco(true);
+        
+        
+//        if (!flappy.getMov() && flappy.contiene(e.getX(), e.getY())) {
+//            flappy.lanzar();
+//        }
     }
 
     @Override
@@ -405,6 +423,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        //canasta.serBrinco(false);
     }
 
     @Override

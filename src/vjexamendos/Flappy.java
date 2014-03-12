@@ -135,32 +135,7 @@ public class Flappy extends Base {
         return anim;
     }
     
-    public String getData() {
-        long dif1 = System.currentTimeMillis() - startTime;
-        long dif2 = System.currentTimeMillis() - freezeTime;
-        String salida = String.valueOf(dif1)+","+String.valueOf(dif2)+","+ String.valueOf(vx) + ",";
-        salida += String.valueOf (vy) + "," + String.valueOf (x)+ ","+ String.valueOf (y)+",";
-        salida += String.valueOf(aceleracion)+ ","+String.valueOf(mov) ;
-        return salida;
-        
-    }
-    public void assingData(String[] arr) {
-        
-        long dif1 = Long.parseLong(arr[5]);
-        startTime = System.currentTimeMillis() - dif1;
-        long dif2 = Long.parseLong(arr[6]);
-        freezeTime = System.currentTimeMillis() - dif2;
-        vx = Double.parseDouble(arr[7]);
-        vy = Double.parseDouble(arr[8]);
-        x = Double.parseDouble(arr[9]);
-        y = Double.parseDouble(arr[10]);
 
-        
-        aceleracion = Double.parseDouble(arr[11]);
-        mov = Boolean.parseBoolean(arr[12]);
-        avanza();
- 
 
-    }
 
 }
