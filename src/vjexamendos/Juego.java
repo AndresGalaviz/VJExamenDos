@@ -63,7 +63,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      */
     public Juego() {
         setTitle("FlappyMemilio");
-        setSize(800, 900);
+        setSize(600, 894);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         init();
         start();
@@ -81,7 +81,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         Base.setH(getHeight());
         
         distX = 500;
-        distY = 600;
+        distY = 650;
         
         fish = new Flappy(0, 0);
         fish.setX(getWidth()/5);
@@ -268,6 +268,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             if (fish.colisiona(medusa)) {
                 if(!lost) {
                     fish.setVy(0);
+                    
                 }
                 lost = true;
                 
@@ -277,10 +278,14 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 // Atraviesa una medusa
                 if (0 <= dif && dif < PipeSet.getSpeed()) {
                     score++;
-                    if (score%50 == 0) {
+                    if (score%20 == 0) {
                         nivel++;
-                        distX -= 50;
-                        distY -= 20;
+                        if(distY >=300) {
+                            distX -= 50;
+                        }
+                        if(distY >=400) {
+                            distY -= 10;
+                        }
                     }
                 }
             }
@@ -332,14 +337,15 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         if (!(State == STATE.CHARSEL)) {
             // Muestra en pantalla el cuadro actual de la animación
             g.drawImage(gameBG[index], 0, 0, this);    // Imagen de background
-            if (fish != null && fish.getImagenI() != null) {
-                g.drawImage(fish.getImagenI(), fish.getPosX(), fish.getPosY(), this);
-            }
+
 
             for (PipeSet medusa : medusas) {
                 if (medusa != null) {
                     medusa.draw(g, this);
                 }
+            }
+            if (fish != null && fish.getImagenI() != null) {
+                g.drawImage(fish.getImagenI(), fish.getPosX(), fish.getPosY(), this);
             }
 
             g.setFont(new Font("default", Font.BOLD, 16));
