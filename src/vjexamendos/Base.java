@@ -9,8 +9,8 @@ import javax.swing.ImageIcon;
 
 public class Base {
 
-    private int posX;    //posicion en x.       
-    private int posY;    //posicion en y.
+    private double posX;    //posicion en x.       
+    private double posY;    //posicion en y.
     private static int W;
     private static int H;
     
@@ -24,8 +24,8 @@ public class Base {
      * @param image es la <code>imagen</code> del objeto.
      */
     public Base(int posX, int posY, Animacion animacion) {
-        this.posX = posX;
-        this.posY = posY;
+        this.posX = (double)posX;
+        this.posY = (double)posY;
         this.animacion = animacion;
     }
 
@@ -38,7 +38,15 @@ public class Base {
         this.posX = posX;
     }
 
-
+    /**
+     * Metodo modificador usado para cambiar la posicion en x del objeto
+     *
+     * @param posX es la <code>posicion en x</code> del objeto.
+     */
+    public void setDoublePosX(double posX) {
+        this.posX = posX;
+    }
+    
     /**
      * Metodo de acceso que regresa la posicion en x del objeto como entero
      *
@@ -46,6 +54,15 @@ public class Base {
      */
     public int getPosX() {
         return (int)posX;
+    }
+    
+    /**
+     * Metodo de acceso que regresa la posicion en x del objeto
+     *
+     * @return posX es la <code>posicion en x</code> del objeto.
+     */
+    public double getDoublePosX() {
+        return posX;
     }
 
     /**
@@ -56,6 +73,17 @@ public class Base {
     public void setPosY(int posY) {
         this.posY = posY;
     }
+    
+    /**
+     * Metodo modificador usado para cambiar la posicion en y del objeto
+     *
+     * @param posY es la <code>posicion en y</code> del objeto.
+     */
+    public void setDoublePosY(double posY) {
+        this.posY = posY;
+    }
+    
+    
 
     /**
      * Metodo de acceso que regresa la posicion en y del objeto
@@ -64,6 +92,15 @@ public class Base {
      */
     public int getPosY() {
         return (int)posY;
+    }
+    
+    /**
+     * Metodo de acceso que regresa la posicion en y del objeto como entero
+     *
+     * @return posY es la <code>posicion en y</code> del objeto.
+     */
+    public double getDoublePosY() {
+        return posY;
     }
     
 

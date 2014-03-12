@@ -79,15 +79,15 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         Base.setW(getWidth());
         Base.setH(getHeight());
         
-        distX = 300;
-        distY = 500;
+        distX = 500;
+        distY = 600;
         
         fish = new Flappy(0, 0);
         fish.setX(getWidth()/5);
         fish.setY(getHeight()/2);
         medusas = new ArrayList();
         for (int i = 0; i < 2*getWidth()/distX; i++) {
-            medusas.add(new PipeSet(3*getWidth() + i*distX));
+            medusas.add(new PipeSet(2*getWidth() + i*distX));
         }
         gameBG = new Image[MAXINDEX];
         for (int i = 0; i < MAXINDEX; i++) {

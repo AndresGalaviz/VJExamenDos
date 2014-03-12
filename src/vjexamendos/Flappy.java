@@ -14,12 +14,12 @@ import java.awt.Toolkit;
  */
 public class Flappy extends Base {
     
-    private int vy;
+    private double vy;
     private int x;
     private int y;
     private boolean mov;
     private boolean inside;
-    private static int g = 1;
+    private static double g = 0.5;
     private static Animacion[] anim = new Animacion[4];
     private static int X = crearAnimacionFlappy();
     
@@ -59,7 +59,7 @@ public class Flappy extends Base {
      */
     public void avanza() {
         if (mov) {
-            setPosY(getPosY() - vy);
+            setDoublePosY(getDoublePosY() - vy);
             vy -= g;
         }
     }
