@@ -94,7 +94,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             gameBG[i] = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background" + "0" + ".jpg"));
         }
         pause = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/pause.png"));
-        charSelBG = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background0.jpg"));
+        charSelBG = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/charSelectN.jpg"));
         charSel = new CharSel(charSelBG);
         pausa = false;
         sound = true;
@@ -141,12 +141,15 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             }
             if (empezar) {
                 empezarJuego();
+                State = STATE.GAME;
                 empezar = false;
             }
-            if (!pausa) {
-                //Actualiza la animacion
-                actualiza();
-                checaColision();
+            if (State == STATE.GAME) {
+                if (!pausa) {
+                    //Actualiza la animacion
+                    actualiza();
+                    checaColision();
+                }
             }
             //Manda a llamar al metodo paint() para mostrar en pantalla la animación
             repaint();
