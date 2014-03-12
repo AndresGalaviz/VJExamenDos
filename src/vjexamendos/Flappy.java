@@ -32,7 +32,7 @@ public class Flappy extends Base {
         super(posX, posY, null);
         x = posX;
         y = posY;
-        reaparecer();
+        //reaparecer();
     }
 
     /**
