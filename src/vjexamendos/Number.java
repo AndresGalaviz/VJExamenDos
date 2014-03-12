@@ -28,14 +28,18 @@ public class Number {
     public static void draw (Graphics g, Juego juego, int N, int X, int Y) {
         int digits[] = new int[10];
         int n = N, d = 0;
+        if (n == 0) {
+            digits[d++] = 0;
+        }
         while (n > 0) {
             digits[d++] = n%10;
             n /= 10;
         }
-        int totalLength = d*numbers[0].getWidth(juego) + (d-1)*10;
+        int totalLength = d*numbers[2].getWidth(juego) + (d-1)*10;
         for (int i = 0; i < d; i++) {
-            int posX = X - totalLength/2 + i*numbers[d-i-1].getWidth(juego) + (i)*10;
-            int posY = Y - numbers[d-i-1].getWidth(juego)/2;
+            //System.out.println(".." + digits[i]);
+            int posX = X - totalLength/2 + i*numbers[2].getWidth(juego) + (i)*10;
+            int posY = Y - numbers[2].getWidth(juego)/2;
             g.drawImage(numbers[digits[d-i-1]], posX, posY, juego);
         }
     }
@@ -43,7 +47,8 @@ public class Number {
     private static Image[] getNumbers() {
         Image[] imgs = new Image[10];
         for (int j = 0; j < 10; j++) {
-            imgs[j] = Toolkit.getDefaultToolkit().getImage(Number.class.getResource(j + ".png"));
+            //System.out.println(j);
+            imgs[j] = Toolkit.getDefaultToolkit().getImage(Number.class.getResource("Images/" + j + ".png"));
         }
         return imgs;
     }

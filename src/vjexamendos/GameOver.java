@@ -16,21 +16,22 @@ import java.awt.event.MouseListener;
  * @author Alberto
  */
 public class GameOver implements MouseListener {
-    private final Boton PLAY, RETURN;
-    private final Image BACKGROUND;
+    private final Boton PLAY, RETURN, GAMEOVER;
     
     /**
      * Metodo constructor
      * @param background imagen de fondo
      */
-    public GameOver(Image background) {
-        this.BACKGROUND = background;
+    public GameOver() {
         PLAY = new Boton(Base.getW()/3, 4*Base.getH()/5, "Images/Buttons/play.png");
         PLAY.setPosX(PLAY.getPosX() - PLAY.getAncho()/2);
         PLAY.setPosY(PLAY.getPosY() - PLAY.getAlto()/2);
         RETURN = new Boton(Base.getW()/2, 5*Base.getH()/6, "Images/Buttons/quit.png");
         RETURN.setPosX(RETURN.getPosX() - RETURN.getAncho()/2);
         RETURN.setPosY(RETURN.getPosY() - RETURN.getAlto()/2);
+        GAMEOVER = new Boton(Base.getW()/2, 5*Base.getH()/6, "Images/Buttons/gameover.png");
+        GAMEOVER.setPosX(GAMEOVER.getPosX() - GAMEOVER.getAncho()/2);
+        GAMEOVER.setPosY(GAMEOVER.getPosY() - GAMEOVER.getAlto()/2);
     }
     
     public void actualiza () {
@@ -44,9 +45,9 @@ public class GameOver implements MouseListener {
      */
     public void render(Graphics g, Juego juego) {
         
-        g.drawImage(BACKGROUND, 0, 0, juego);
         g.drawImage(RETURN.getImagenI(), RETURN.getPosX(), RETURN.getPosY(), juego);
         g.drawImage(PLAY.getImagenI(), PLAY.getPosX(), PLAY.getPosY(), juego);
+        g.drawImage(GAMEOVER.getImagenI(), GAMEOVER.getPosX(), GAMEOVER.getPosY(), juego);
     }
 
     /**

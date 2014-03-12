@@ -41,6 +41,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     private Image pause;
     private Graphics dbg;
     private CharSel charSel;
+    private GameOver gameOver;
     private SoundClip bang;
     private SoundClip shoot;
     private long tiempoActual;
@@ -357,8 +358,9 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             if(State == STATE.GAMEOVER) {
                 
             } else {
-                g.setColor(Color.green);
-                g.drawString("Score: " + score, 20, 55);
+//                g.setColor(Color.green);
+//                g.drawString("Score: " + score, 20, 55);
+                Number.draw(g, this, score, getWidth()/2, getHeight()/4);
             }
 
         } else {
