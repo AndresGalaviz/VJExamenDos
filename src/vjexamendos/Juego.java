@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,11 +28,12 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     private static final String nombreArchivo = "score.txt";
     private String[] arr;    //Arreglo del archivo divido.
     private Flappy flappy;
-    private Vector<Pipe> pipes;
+    private ArrayList<PipeSet> pipes;
     private boolean pausa;
     private boolean instrucciones;
     private boolean sound;
     private int score;
+    private int index;
     private Image dbImage;
     private Image background;
     private Image gameover;
@@ -40,10 +42,18 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     private Graphics dbg;
     private SoundClip bang;
     private SoundClip shoot;
-
-    //Variables de control de tiempo de la animacion
     private long tiempoActual;
 
+    public static enum STATE {
+        CHARSEL,
+        GAME
+    };
+    public static STATE State;
+    public static int distX;
+    public static int distY;
+    public static int jugador = -1;
+    public static boolean jugando = true;
+    
     /**
      * Método constructor de la clase <code>JFrameExamen</code>.
      */
@@ -66,9 +76,12 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         Base.setW(getWidth());
         Base.setH(getHeight());
         flappy = new Flappy(0, 0);
-        flappy.setX(getWidth() / 5 - flappy.getAncho());
-        flappy.setY(getHeight() / 2 - flappy.getAlto());
-        pipes = new Vector();
+        flappy.setX(getWidth()/5 - flappy.getAncho()/2);
+        flappy.setY(getHeight()/2 - flappy.getAlto()/2);
+        pipes = new ArrayList();
+        for (int i = 0; i < 2*getWidth()/distX; i++) {
+            pipes.add(new PipeSet(3*getWidth() + i*distX));
+        }
         background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background/background.jpg"));
         pause = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/pause.png"));
         instructionBack = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background/instrucciones.jpg"));
@@ -161,53 +174,40 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
 
     }
 
-//    /**
-//     * Metodo que agrega la informacion del vector al archivo.
-//     *
-//     * @throws IOException
-//     */
-//    public void grabaArchivo() throws IOException {
-//        //guarda cuando no se encuentra en instrucciones
-//        if (!instrucciones) {
-//            try {
-//                PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
-//
-//                fileOut.println(String.valueOf(pausa) + "," + String.valueOf(vidas) + "," + String.valueOf(score) + "," + String.valueOf(caidas) + "," + String.valueOf(entrando) + "," + flappy.getData() + "," + canasta.getData() + "," + String.valueOf(sound));
-//                fileOut.close();
-//            } catch (FileNotFoundException e) {
-//
-//            }
-//        }
-//    }
+    /**
+     * Metodo que agrega la informacion del vector al archivo.
+     *
+     * @throws IOException
+     */
+    public void grabaArchivo() throws IOException {
+        //guarda cuando no se encuentra en instrucciones
+        if (!instrucciones) {
+            try {
+                PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
+
+                fileOut.println(String.valueOf(pausa) + "," + String.valueOf(vidas) + "," + String.valueOf(score) + "," + String.valueOf(caidas) + "," + String.valueOf(entrando) + "," + flappy.getData() + "," + canasta.getData() + "," + String.valueOf(sound));
+                fileOut.close();
+            } catch (FileNotFoundException e) {
+
+            }
+        }
+    }
 
     /**
      * El método actualiza() actualiza la animación
      */
     public void actualiza() {
 
-//        //Determina el tiempo que ha transcurrido desde que el Applet inicio su ejecución
-//        long tiempoTranscurrido = System.currentTimeMillis() - tiempoActual;
-//
-//        //Guarda el tiempo actual
-//        tiempoActual += tiempoTranscurrido;
-//
-//        if (canasta.getMoveLeft()) {
-//            canasta.setPosX(canasta.getPosX() - 4);
-//        }
-//        if (canasta.getMoveRight()) {
-//            canasta.setPosX(canasta.getPosX() + 4);
-//        }
+        //Determina el tiempo que ha transcurrido desde que el Applet inicio su ejecución
+        long tiempoTranscurrido = System.currentTimeMillis() - tiempoActual;
+
+        //Guarda el tiempo actual
+        tiempoActual += tiempoTranscurrido;
 
         flappy.avanza();
-//        if (entrando) {
-//            flappy.setPosX(canasta.getPosX() + canasta.getAncho() / 2 - flappy.getAncho() / 2);
-//        }
-//
-//        //Actualiza la animación en base al tiempo transcurrido
-//        canasta.actualiza(tiempoTranscurrido);
-//        if (flappy.getMov()) {
-//            flappy.actualiza(tiempoTranscurrido);
-//        }
+
+        //Actualiza la animación en base al tiempo transcurrido
+        flappy.actualiza(tiempoTranscurrido);
     }
 
     /**
@@ -248,6 +248,10 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             entrando = true;
         }
 
+    }
+    
+    private void empezarJuego() {
+        index = (int)(Math.random() * 2) + 1;
     }
 
     /**
