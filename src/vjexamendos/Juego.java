@@ -113,7 +113,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         //shoot = new SoundClip("Sounds/failS.wav");
         //bang = new SoundClip("Sounds/hoopS.wav");
         shoot = new SoundClip("Sounds/failS.wav");
-        bang = new SoundClip("Sounds/hoopS.wav");
+        bang = new SoundClip("Sounds/bubble.WAV");
     }
 
     /**
@@ -217,6 +217,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             lost = true;
             if (sound) {
                 shoot.play();
+                sound= false;
             }
             
             
@@ -253,6 +254,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 lost = true;
                 if (sound) {
                     shoot.play();
+                    sound= false;
                 }
                 
 
@@ -275,6 +277,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     }
     
     private void empezarJuego() {
+        sound= true;
         index = (int)(Math.random() * MAXINDEX);
         fish.reaparecer();
         for (int i = 0; i < medusas.size(); i++) {
@@ -341,7 +344,10 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 g.drawImage(pause, 0,0, this);
                 try {
                     leeArchivo();
-
+                    for(int i =0; i < arr.length; i+=2) {
+                        g.drawString (arr[i], getWidth()/2 - 250, (i+1)*40 + 300);
+                        g.drawString (arr[i+1], getWidth()/2 + 200, (i+1)*40 + 300);
+                    }  
                 } catch (IOException ex) {
                     Logger.getLogger (Juego.class.getName()).log (Level.SEVERE, null, ex);
                 }
@@ -374,7 +380,6 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             fileIn = new BufferedReader(new FileReader(nombreArchivo));
         }
         String dato = fileIn.readLine();
-        System.out.println (dato);
         arr = dato.split(",");
  
         fileIn.close();
