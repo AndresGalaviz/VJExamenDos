@@ -83,8 +83,13 @@ public class GameOver {
      * @param e 
      */
     public void mouseClicked (MouseEvent e) {
-        if (Juego.State == Juego.STATE.GAMEOVER && botones[1].contiene(e.getX(), e.getY())) {
+        if (Juego.State == Juego.STATE.GAMEOVER) {
+            if (botones[1].contiene(e.getX(), e.getY())) {
                 Juego.jugando = false;
+            } else {
+                Juego.State = Juego.STATE.CHARSEL;
+                reset();
+            }
         }
     }
 }
