@@ -373,7 +373,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                         fish.getPosY() + fish.getAlto()/2 - pause.getHeight(this), this);
             }
             if(State == STATE.GAMEOVER) {
-                
+                gameOver.render(g, this);
             } else {
 //                g.setColor(Color.green);
 //                g.drawString("Score: " + score, 20, 55);

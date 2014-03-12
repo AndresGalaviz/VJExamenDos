@@ -44,11 +44,20 @@ public class GameOver implements MouseListener {
     }
     
     public void actualiza () {
-        
+        for (int i = 0; i < 2; i++) {
+            if (botones[i].getPosY() > finalPosY[i]) {
+                botones[i].setPosY(botones[i].getPosY() - 4);
+            }
+        }
+        if (botones[2].getPosY() < finalPosY[2]) {
+            botones[2].setPosY(botones[2].getPosY() + 4);
+        }
     }
     
     public void reset () {
-        
+        for (int i = 0; i < 3; i++) {
+            botones[i].setPosY(startPosY[i]);
+        }
     }
     
     /**
@@ -73,8 +82,10 @@ public class GameOver implements MouseListener {
             
             if (botones[1].contiene (e.getX(), e.getY())) {
                 Juego.State = Juego.STATE.CHARSEL;
-            } if (botones[0].contiene (e.getX(), e.getY())) {
+                reset();
+            } else if (botones[0].contiene (e.getX(), e.getY())) {
                 Juego.empezar = true;
+                reset();
             }
         
         }
