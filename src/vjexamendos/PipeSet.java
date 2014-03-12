@@ -17,10 +17,10 @@ import javax.swing.ImageIcon;
  * @author Alberto
  */
 public class PipeSet {
-    private Pipe upPipe, downPipe;
-    private static ImageIcon upPipeIcon = getUpIcon(),
+    private final Pipe upPipe, downPipe;
+    private static final ImageIcon upPipeIcon = getUpIcon(),
              downPipeIcon = getDownIcon();
-    private static int speed = 2; 
+    private static final int speed = 2; 
     public PipeSet(int posX) {
         upPipe = new Pipe(0, 0, upPipeIcon);
         downPipe = new Pipe(0, 0, downPipeIcon);

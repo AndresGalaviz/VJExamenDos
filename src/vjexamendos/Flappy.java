@@ -40,6 +40,8 @@ public class Flappy extends Base {
      */
     public void reaparecer() {
         setAnimacion(anim[Juego.jugador]);
+        System.out.println("--");
+        System.out.println(getAncho() + " " + getAlto());
         setPosX(x-getAncho()/2);
         setPosY(y-getAlto()/2);
         mov = false;
@@ -59,7 +61,7 @@ public class Flappy extends Base {
      */
     public void avanza() {
         if (mov) {
-            setPosX(getPosX() - vy);
+            setPosY(getPosY() - vy);
             vy -= g;
         }
     }
@@ -128,7 +130,7 @@ public class Flappy extends Base {
      * Establece el valor de la gravedad
      * @param a un valor de tipo <code>int</code>
      */
-    public static void setG(int a) {
+    public static void setG(int a) { 
         g = a;
     }
     
@@ -145,9 +147,11 @@ public class Flappy extends Base {
      * @return un objeto de tipo <code>Animacion</code>
      */
     private static int crearAnimacionFlappy() {
-        for (int i = 0; i <=1; i++) {
+        for (int i = 0; i < 2; i++) {
             anim[i] = new Animacion();
-            anim[i].sumaCuadro (Toolkit.getDefaultToolkit ().getImage (Flappy.class.getResource ("Images/peces/pez" + String.valueOf(Juego.jugador) + i + ".png")), 60);
+            for (int j = 0; j < 2; j++) {
+                anim[i].sumaCuadro (Toolkit.getDefaultToolkit ().getImage (Flappy.class.getResource ("Images/peces/pez" + i + j + ".png")), 60);
+            }
         }
         return 1;
     }
