@@ -166,50 +166,50 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      *
      * @throws IOException
      */
-    public void leeArchivo() throws IOException {
-        BufferedReader fileIn;
-        try {
-            fileIn = new BufferedReader(new FileReader(nombreArchivo));
-        } catch (FileNotFoundException e) {
-            File puntos = new File(nombreArchivo);
-            PrintWriter fileOut = new PrintWriter(puntos);
-            fileOut.println("5,0,0,0,0,0,0,0,0,0");
-            fileOut.close();
-            fileIn = new BufferedReader(new FileReader(nombreArchivo));
-        }
-        String dato = fileIn.readLine();
-
-        arr = dato.split(",");
-        pausa = Boolean.parseBoolean(arr[0]);
-        vidas = Integer.parseInt(arr[1]);
-        score = Integer.parseInt(arr[2]);
-        caidas = Integer.parseInt(arr[3]);
-        entrando = Boolean.parseBoolean(arr[4]);
-        fish.assingData(arr);
-        canasta.assignData(arr);
-        sound = Boolean.parseBoolean(arr[14]);
-        fileIn.close();
-
-    }
+//    public void leeArchivo() throws IOException {
+//        BufferedReader fileIn;
+//        try {
+//            fileIn = new BufferedReader(new FileReader(nombreArchivo));
+//        } catch (FileNotFoundException e) {
+//            File puntos = new File(nombreArchivo);
+//            PrintWriter fileOut = new PrintWriter(puntos);
+//            fileOut.println("5,0,0,0,0,0,0,0,0,0");
+//            fileOut.close();
+//            fileIn = new BufferedReader(new FileReader(nombreArchivo));
+//        }
+//        String dato = fileIn.readLine();
+//
+//        arr = dato.split(",");
+//        pausa = Boolean.parseBoolean(arr[0]);
+//        vidas = Integer.parseInt(arr[1]);
+//        score = Integer.parseInt(arr[2]);
+//        caidas = Integer.parseInt(arr[3]);
+//        entrando = Boolean.parseBoolean(arr[4]);
+//        fish.assingData(arr);
+//        canasta.assignData(arr);
+//        sound = Boolean.parseBoolean(arr[14]);
+//        fileIn.close();
+//
+//    }
 
     /**
      * Metodo que agrega la informacion del vector al archivo.
      *
      * @throws IOException
      */
-    public void grabaArchivo() throws IOException {
-        //guarda cuando no se encuentra en instrucciones
-        if (!instrucciones) {
-            try {
-                PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
-
-                fileOut.println(String.valueOf(pausa) + "," + String.valueOf(vidas) + "," + String.valueOf(score) + "," + String.valueOf(caidas) + "," + String.valueOf(entrando) + "," + fish.getData() + "," + canasta.getData() + "," + String.valueOf(sound));
-                fileOut.close();
-            } catch (FileNotFoundException e) {
-
-            }
-        }
-    }
+//    public void grabaArchivo() throws IOException {
+//        //guarda cuando no se encuentra en instrucciones
+//        if (!instrucciones) {
+//            try {
+//                PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
+//
+//                fileOut.println(String.valueOf(pausa) + "," + String.valueOf(vidas) + "," + String.valueOf(score) + "," + String.valueOf(caidas) + "," + String.valueOf(entrando) + "," + fish.getData() + "," + canasta.getData() + "," + String.valueOf(sound));
+//                fileOut.close();
+//            } catch (FileNotFoundException e) {
+//
+//            }
+//        }
+//    }
 
     /**
      * El método actualiza() actualiza la animación
