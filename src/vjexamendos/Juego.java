@@ -279,7 +279,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         fish.reaparecer();
         for (int i = 0; i < medusas.size(); i++) {
             PipeSet medusa = medusas.get(i);
-            medusa.setPosX(2*getWidth() + i*distX);
+            medusa.reaparece(2*getWidth() + i*distX);
         }
         lost = false;
         score = 0;
@@ -341,10 +341,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 g.drawImage(pause, 0,0, this);
                 try {
                     leeArchivo();
-                    for(int i =0; i < arr.length; i+=2) {
-                        g.drawString (arr[i], i + getWidth()/2, i*30);
-                        g.drawString (arr[i+1], i + getWidth()/2 + 60, i*30);
-                    }  
+
                 } catch (IOException ex) {
                     Logger.getLogger (Juego.class.getName()).log (Level.SEVERE, null, ex);
                 }
@@ -377,6 +374,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             fileIn = new BufferedReader(new FileReader(nombreArchivo));
         }
         String dato = fileIn.readLine();
+        System.out.println (dato);
         arr = dato.split(",");
  
         fileIn.close();
