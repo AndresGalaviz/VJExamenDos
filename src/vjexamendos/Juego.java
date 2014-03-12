@@ -34,6 +34,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     private boolean lost;
     private int score;
     private int index;
+    private int maxScore;
     private final int MAXINDEX = 3;
     private Image dbImage;
     private Image[] gameBG;
@@ -83,7 +84,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         
         distX = 500;
         distY = 650;
-        
+        maxScore = 0;
         fish = new Flappy(0, 0);
         fish.setX(getWidth()/5);
         fish.setY(getHeight()/2);
@@ -172,50 +173,41 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      *
      * @throws IOException
      */
-//    public void leeArchivo() throws IOException {
-//        BufferedReader fileIn;
-//        try {
-//            fileIn = new BufferedReader(new FileReader(nombreArchivo));
-//        } catch (FileNotFoundException e) {
-//            File puntos = new File(nombreArchivo);
-//            PrintWriter fileOut = new PrintWriter(puntos);
-//            fileOut.println("5,0,0,0,0,0,0,0,0,0");
-//            fileOut.close();
-//            fileIn = new BufferedReader(new FileReader(nombreArchivo));
-//        }
-//        String dato = fileIn.readLine();
-//
-//        arr = dato.split(",");
-//        pausa = Boolean.parseBoolean(arr[0]);
-//        vidas = Integer.parseInt(arr[1]);
-//        score = Integer.parseInt(arr[2]);
-//        caidas = Integer.parseInt(arr[3]);
-//        entrando = Boolean.parseBoolean(arr[4]);
-//        fish.assingData(arr);
-//        canasta.assignData(arr);
-//        sound = Boolean.parseBoolean(arr[14]);
-//        fileIn.close();
-//
-//    }
+    public void leeArchivo() throws IOException {
+        BufferedReader fileIn;
+        try {
+            fileIn = new BufferedReader(new FileReader(nombreArchivo));
+        } catch (FileNotFoundException e) {
+            File puntos = new File(nombreArchivo);
+            PrintWriter fileOut = new PrintWriter(puntos);
+            fileOut.println("0");
+            fileOut.close();
+            fileIn = new BufferedReader(new FileReader(nombreArchivo));
+        }
+        String dato = fileIn.readLine();
+        maxScore = Integer.parseInt(dato);
+        fileIn.close();
+
+    }
 
     /**
      * Metodo que agrega la informacion del vector al archivo.
      *
      * @throws IOException
      */
-//    public void grabaArchivo() throws IOException {
-//        //guarda cuando no se encuentra en instrucciones
-//        if (!instrucciones) {
-//            try {
-//                PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
-//
-//                fileOut.println(String.valueOf(pausa) + "," + String.valueOf(vidas) + "," + String.valueOf(score) + "," + String.valueOf(caidas) + "," + String.valueOf(entrando) + "," + fish.getData() + "," + canasta.getData() + "," + String.valueOf(sound));
-//                fileOut.close();
-//            } catch (FileNotFoundException e) {
-//
-//            }
-//        }
-//    }
+    public void grabaArchivo() throws IOException {
+        //guarda cuando no se encuentra en instrucciones
+       
+        try {
+            PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
+
+            fileOut.println(String.valueOf(score));
+            fileOut.close();
+        } catch (FileNotFoundException e) {
+
+        }
+        
+    }
 
     /**
      * El método actualiza() actualiza la animación
@@ -247,6 +239,19 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         // Colision flappy con JFrame
         if (fish.getPosY() + fish.getAlto() > getHeight()) {
             lost = true;
+            try {
+                leeArchivo();
+            } catch (IOException ex) {
+                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(score>maxScore) {
+                try {
+                    grabaArchivo();
+                } catch (IOException ex) {
+                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
             State = STATE.GAMEOVER;
             fish.setPosY(getHeight() - fish.getAlto());
         } else if (fish.getPosY() < 0) {
@@ -269,7 +274,19 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             if (fish.colisiona(medusa)) {
                 if(!lost) {
                     fish.setVy(0);
-                    
+                   
+                    try {
+                        leeArchivo();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    if(score>maxScore) {
+                        try {
+                            grabaArchivo();
+                        } catch (IOException ex) {
+                            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 }
                 lost = true;
                 
