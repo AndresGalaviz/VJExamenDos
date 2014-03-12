@@ -268,12 +268,12 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             } else {
                 int dif = (fish.getPosX() + fish.getAncho()/2) - (medusa.getPosX() - medusa.getAncho()/2);
                 // Atraviesa una medusa
-                if (0 < dif && dif < PipeSet.getSpeed()) {
+                if (0 <= dif && dif < PipeSet.getSpeed()) {
                     score++;
                     if (score%50 == 0) {
                         nivel++;
-                        distX -= 20;
-                        distY -= 5;
+                        distX -= 50;
+                        distY -= 20;
                     }
                 }
             }
