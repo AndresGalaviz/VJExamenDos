@@ -83,8 +83,8 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         distY = 500;
         
         fish = new Flappy(0, 0);
-        fish.setX(getWidth()/5 - fish.getAncho()/2);
-        fish.setY(getHeight()/2 - fish.getAlto()/2);
+        fish.setX(getWidth()/5);
+        fish.setY(getHeight()/2);
         medusas = new ArrayList();
         for (int i = 0; i < 2*getWidth()/distX; i++) {
             medusas.add(new PipeSet(3*getWidth() + i*distX));
