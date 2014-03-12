@@ -49,7 +49,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      */
     public Juego() {
         setTitle("Examen");
-        setSize(1100, 700);
+        setSize(1600, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         init();
         start();
