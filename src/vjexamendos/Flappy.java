@@ -20,6 +20,8 @@ public class Flappy extends Base {
     private boolean mov;
     private boolean inside;
     private static int g = 3;
+    private static Animacion[] anim = new Animacion[4];
+    private static int X = crearAnimacionFlappy();
     
     /**
      * Metodo constructor.
@@ -27,7 +29,7 @@ public class Flappy extends Base {
      * @param posY coordenada y inicial.
      */
     public Flappy(int posX, int posY) {
-        super(posX, posY, crearAnimacionFlappy());
+        super(posX, posY, null);
         x = posX;
         y = posY;
         reaparecer();
@@ -39,6 +41,7 @@ public class Flappy extends Base {
     public void reaparecer() {
         setPosX(x);
         setPosY(y);
+        setAnimacion(anim[Juego.jugador]);
         mov = false;
         inside = true;
     }
@@ -141,15 +144,12 @@ public class Flappy extends Base {
      * Crea la animación de la pelota para el constructor
      * @return un objeto de tipo <code>Animacion</code>
      */
-    private static Animacion crearAnimacionFlappy() {
-        Animacion anim = new Animacion();
-        for (int i = 0; i <= 20; i++) {
-            anim.sumaCuadro (Toolkit.getDefaultToolkit ().getImage (Flappy.class.getResource ("Images/ball/basketball" + i + ".png")), 60);
+    private static int crearAnimacionFlappy() {
+        for (int i = 0; i < 2; i++) {
+            anim[i] = new Animacion();
+            anim[i].sumaCuadro (Toolkit.getDefaultToolkit ().getImage (Flappy.class.getResource ("Images/pez" + i + ".png")), 60);
         }
-        return anim;
+        return 1;
     }
-    
-
-
 
 }

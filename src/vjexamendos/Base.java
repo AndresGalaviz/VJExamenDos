@@ -105,6 +105,14 @@ public class Base {
     public Image getImagenI() {
         return animacion.getImagen().getImage();
     }
+    
+    /**
+     * Metodo modificador del atributo <code>animacion</code>
+     * @param anim objeto de tipo <code>Animacion</code>
+     */
+    public void setAnimacion(Animacion anim) {
+        animacion = anim;
+    }
 
     /**
      * Metodo de acceso que regresa un nuevo rectangulo

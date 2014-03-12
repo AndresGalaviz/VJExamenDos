@@ -77,6 +77,10 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         addMouseListener(this);
         Base.setW(getWidth());
         Base.setH(getHeight());
+        
+        distX = 300;
+        distY = 500;
+        
         fish = new Flappy(0, 0);
         fish.setX(getWidth()/5 - fish.getAncho()/2);
         fish.setY(getHeight()/2 - fish.getAlto()/2);
@@ -254,8 +258,14 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 lost = true;
             } else {
                 int dif = (fish.getPosX() + fish.getAncho()/2) - (medusa.getPosX() - medusa.getAncho()/2);
+                // Atraviesa una medusa
                 if (0 < dif && dif < PipeSet.getSpeed()) {
-                    
+                    score++;
+                    if (score%50 == 0) {
+                        nivel++;
+                        distX -= 20;
+                        distY -= 5;
+                    }
                 }
             }
         }
