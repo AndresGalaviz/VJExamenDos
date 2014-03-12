@@ -334,7 +334,9 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     private void empezarJuego() {
         index = (int)(Math.random() * MAXINDEX);
         fish.reaparecer();
-        
+        lost = false;
+        score = 0;
+        nivel = 0;
     }
 
     /**
@@ -449,6 +451,8 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             } else {
                 charSel.mouseClicked(e);
             }
+        } else if (State == STATE.GAMEOVER) {
+            gameOver.mouseClicked(e);
         }
     }
 
