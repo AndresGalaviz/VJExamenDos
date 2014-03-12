@@ -18,6 +18,7 @@ public class Flappy extends Base {
     private int x;
     private int y;
     private boolean mov;
+    private boolean inside;
     private static int g = 3;
     
     /**
@@ -39,6 +40,7 @@ public class Flappy extends Base {
         setPosX(x);
         setPosY(y);
         mov = false;
+        inside = true;
     }
     
     /**
@@ -87,6 +89,14 @@ public class Flappy extends Base {
      */
     public boolean getMov() {
         return mov;
+    }
+    
+    public void setInside(boolean i) {
+        inside = i;
+    }
+    
+    public boolean getInside() {
+        return inside;
     }
     
     /**
