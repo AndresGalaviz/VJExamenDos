@@ -19,7 +19,7 @@ public class Flappy extends Base {
     private int y;
     private boolean mov;
     private boolean inside;
-    private static int g = 3;
+    private static int g = 1;
     private static Animacion[] anim = new Animacion[4];
     private static int X = crearAnimacionFlappy();
     

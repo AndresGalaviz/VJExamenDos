@@ -20,7 +20,7 @@ public class PipeSet {
     private final Pipe upPipe, downPipe;
     private static final ImageIcon upPipeIcon = getUpIcon(),
              downPipeIcon = getDownIcon();
-    private static final int speed = 2; 
+    private static final int speed = 10; 
     public PipeSet(int posX) {
         upPipe = new Pipe(0, 0, upPipeIcon);
         downPipe = new Pipe(0, 0, downPipeIcon);
@@ -54,7 +54,7 @@ public class PipeSet {
     }
     
     public void reaparece(int posX) {
-        int minPosY = -50, maxPosY = -10;
+        int minPosY = -150, maxPosY = -10;
         int posY = (int)(Math.random() * (maxPosY - minPosY)) + minPosY;
         upPipe.setPosX(posX);
         downPipe.setPosX(posX);
