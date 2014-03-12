@@ -3,8 +3,7 @@ package vjexamendos;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.KeyEvent;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,7 +14,7 @@ import java.awt.event.MouseListener;
  *
  * @author Alberto
  */
-public class GameOver implements MouseListener {
+public class GameOver {
     private final Boton[] botones;
     private final int[] startPosY, finalPosY;
     
@@ -76,31 +75,14 @@ public class GameOver implements MouseListener {
      * Revisa clicks en los botones
      * @param e 
      */
-    @Override
-    public void mouseClicked (MouseEvent e) {
+    public void keyPressed (KeyEvent e) {
         if (Juego.State == Juego.STATE.GAMEOVER) {
-            
-            if (botones[1].contiene (e.getX(), e.getY())) {
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                 Juego.State = Juego.STATE.CHARSEL;
                 reset();
-            } else if (botones[0].contiene (e.getX(), e.getY())) {
-                Juego.empezar = true;
-                reset();
             }
-        
+                    
         }
         
     }
-
-    @Override
-    public void mousePressed (MouseEvent e) {}
-
-    @Override
-    public void mouseReleased (MouseEvent e) {}
-
-    @Override
-    public void mouseEntered (MouseEvent e) {}
-
-    @Override
-    public void mouseExited (MouseEvent e) {}
 }
