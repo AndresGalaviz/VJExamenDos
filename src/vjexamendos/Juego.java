@@ -34,6 +34,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     private boolean lost;
     private int score;
     private int index;
+    private final int MAXINDEX = 3;
     private Image dbImage;
     private Image[] gameBG;
     private Image charSelBG;
@@ -60,7 +61,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      * Método constructor de la clase <code>JFrameExamen</code>.
      */
     public Juego() {
-        setTitle("Examen");
+        setTitle("FlappyMemilio");
         setSize(1600, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         init();
@@ -88,8 +89,8 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         for (int i = 0; i < 2*getWidth()/distX; i++) {
             medusas.add(new PipeSet(3*getWidth() + i*distX));
         }
-        gameBG = new Image[3];
-        for (int i = 0; i < 3; i++) {
+        gameBG = new Image[MAXINDEX];
+        for (int i = 0; i < MAXINDEX; i++) {
             gameBG[i] = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background/background" + i + ".jpg"));
         }
         pause = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/pause.png"));
@@ -138,6 +139,10 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             if (!jugando) {
                 setVisible(false);
                 System.exit(0);
+            }
+            if (empezar) {
+                empezarJuego();
+                empezar = false;
             }
             if (!pausa) {
                 //Actualiza la animacion
@@ -273,7 +278,9 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     }
     
     private void empezarJuego() {
-        index = (int)(Math.random() * 2) + 1;
+        index = (int)(Math.random() * MAXINDEX);
+        fish.reaparecer();
+        
     }
 
     /**
