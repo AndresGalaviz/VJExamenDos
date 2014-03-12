@@ -145,9 +145,9 @@ public class Flappy extends Base {
      * @return un objeto de tipo <code>Animacion</code>
      */
     private static int crearAnimacionFlappy() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i <=1; i++) {
             anim[i] = new Animacion();
-            anim[i].sumaCuadro (Toolkit.getDefaultToolkit ().getImage (Flappy.class.getResource ("Images/pez" + i + ".png")), 60);
+            anim[i].sumaCuadro (Toolkit.getDefaultToolkit ().getImage (Flappy.class.getResource ("Images/peces/pez" + String.valueOf(Juego.jugador) + i + ".png")), 60);
         }
         return 1;
     }
