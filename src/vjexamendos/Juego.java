@@ -63,7 +63,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      */
     public Juego() {
         setTitle("FlappyMemilio");
-        setSize(800, 900);
+        setSize(600, 894);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         init();
         start();
@@ -268,6 +268,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             if (fish.colisiona(medusa)) {
                 if(!lost) {
                     fish.setVy(0);
+                    
                 }
                 lost = true;
                 
@@ -332,14 +333,15 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         if (!(State == STATE.CHARSEL)) {
             // Muestra en pantalla el cuadro actual de la animación
             g.drawImage(gameBG[index], 0, 0, this);    // Imagen de background
-            if (fish != null && fish.getImagenI() != null) {
-                g.drawImage(fish.getImagenI(), fish.getPosX(), fish.getPosY(), this);
-            }
+
 
             for (PipeSet medusa : medusas) {
                 if (medusa != null) {
                     medusa.draw(g, this);
                 }
+            }
+            if (fish != null && fish.getImagenI() != null) {
+                g.drawImage(fish.getImagenI(), fish.getPosX(), fish.getPosY(), this);
             }
 
             g.setFont(new Font("default", Font.BOLD, 16));
