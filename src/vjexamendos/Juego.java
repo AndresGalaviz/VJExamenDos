@@ -91,20 +91,19 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         }
         gameBG = new Image[MAXINDEX];
         for (int i = 0; i < MAXINDEX; i++) {
-            gameBG[i] = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background" + i + ".jpg"));
+            gameBG[i] = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background" + "0" + ".jpg"));
         }
         pause = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/pause.png"));
         charSelBG = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background0.jpg"));
         charSel = new CharSel(charSelBG);
-        
         pausa = false;
         sound = true;
         lost = false;
         score = 0;
         //Pinta el fondo del Applet de color blanco
         setBackground(Color.white);
-        shoot = new SoundClip("Sounds/failS.wav");
-        bang = new SoundClip("Sounds/hoopS.wav");
+        //shoot = new SoundClip("Sounds/failS.wav");
+        //bang = new SoundClip("Sounds/hoopS.wav");
 
     }
 
