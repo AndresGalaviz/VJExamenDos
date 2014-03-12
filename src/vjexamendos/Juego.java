@@ -25,7 +25,7 @@ import javax.swing.JFrame;
 public class Juego extends JFrame implements Runnable, KeyListener, MouseListener {
 
     private static final long serialVersionUID = 1L;
-    private static final String nombreArchivo = "score.txt";
+    private static final String nombreArchivo = "puntaje.txt";
     private String[] arr;    //Arreglo del archivo divido.
     private Flappy fish;
     private ArrayList<PipeSet> medusas;
