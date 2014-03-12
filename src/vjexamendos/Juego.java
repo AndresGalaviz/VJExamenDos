@@ -25,10 +25,11 @@ import javax.swing.JFrame;
 public class Juego extends JFrame implements Runnable, KeyListener, MouseListener {
 
     private static final long serialVersionUID = 1L;
+    private static final String nombreArchivo = "score.txt";
     private String[] arr;    //Arreglo del archivo divido.
     private Flappy fish;
     private ArrayList<PipeSet> medusas;
-    private HighScore high;
+    
     private boolean pausa;
     private boolean sound;
     private boolean lost;
@@ -96,7 +97,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         for (int i = 0; i < MAXINDEX; i++) {
             gameBG[i] = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background" + i + ".jpg"));
         }
-        pause = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/pause.png"));
+        pause = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/pausa.jpg"));
         charSelBG = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/charSelectN.jpg"));
         charSel = new CharSel(charSelBG);
         gameOver = new GameOver();
@@ -213,11 +214,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         if (fish.getPosY() + fish.getAlto() > getHeight()) {
             lost = true;
             
-//            try {
-//                high.grabaArchivo(score);
-//            } catch (IOException ex) {
-//                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            
             
             
             State = STATE.GAMEOVER;
@@ -226,13 +223,6 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             fish.setPosY(20);
             lost = true;
 
-//          
-//            try {
-//                high.grabaArchivo(score);
-//            } catch (IOException ex) {
-//                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
-//            
-//            }
             
             State = STATE.GAMEOVER;
         } else {
@@ -254,12 +244,6 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 if(!lost) {
                     fish.setVy(0);
                    
-
-//                    try {
-//                        high.grabaArchivo(score);
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
                     
                 }
                 lost = true;
@@ -349,15 +333,22 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             g.setFont(new Font("default", Font.BOLD, 16));
             if (pausa) { // mensaje de pausa
                 g.setColor(Color.white);
-                g.drawImage(pause, fish.getPosX() + fish.getAncho()/2 - pause.getWidth(this),
-                        fish.getPosY() + fish.getAlto()/2 - pause.getHeight(this), this);
+                g.drawImage(pause, 0,0, this);
+                try {
+                    leeArchivo();
+                } catch (IOException ex) {
+                    Logger.getLogger (Juego.class.getName()).log (Level.SEVERE, null, ex);
+                }
+                
             }
             if(State == STATE.GAMEOVER) {
                 gameOver.render(g, this);
             } else {
 //                g.setColor(Color.green);
 //                g.drawString("Score: " + score, 20, 55);
-                Number.draw(g, this, score, getWidth()/2, getHeight()/4);
+                if(!pausa) {
+                    Number.draw(g, this, score, getWidth()/2, getHeight()/4);
+                }
             }
 
         } else {
@@ -365,6 +356,27 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         }
     }
 
+    public void leeArchivo() throws IOException {
+        BufferedReader fileIn;
+        try {
+            fileIn = new BufferedReader(new FileReader(nombreArchivo));
+        } catch (FileNotFoundException e) {
+            File puntos = new File(nombreArchivo);
+            PrintWriter fileOut = new PrintWriter(puntos);
+            fileOut.println("0");
+            fileOut.close();
+            fileIn = new BufferedReader(new FileReader(nombreArchivo));
+        }
+        String dato = fileIn.readLine();
+        arr = dato.split(",");
+        for(int i =0; i < arr.length; i++) {
+            
+        }   
+        fileIn.close();
+
+    }
+    
+    
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -380,11 +392,11 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             if (State == STATE.GAME) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE && fish.getInside()) {
                     fish.lanzar();
-                } else if (e.getKeyCode() == KeyEvent.VK_P) {
-                    pausa = !pausa;
                 } else if (e.getKeyCode() == KeyEvent.VK_S) {
                     sound = !sound;
-                } 
+                } else if(e.getKeyCode () == KeyEvent.VK_F) {
+                    pausa = !pausa;
+                }
             }
         } else if(State == STATE.GAMEOVER) {
             gameOver.keyPressed(e);
@@ -408,7 +420,9 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             }
         } else if (State == STATE.CHARSEL ) {
             charSel.mouseClicked(e);
-        } 
+        } else if(State == STATE.GAMEOVER) {
+            gameOver.mouseClicked(e);
+        }
     }
 
     @Override
