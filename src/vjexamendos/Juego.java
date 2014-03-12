@@ -100,6 +100,8 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         sound = true;
         lost = false;
         score = 0;
+        State = STATE.CHARSEL;
+        
         //Pinta el fondo del Applet de color blanco
         setBackground(Color.white);
         //shoot = new SoundClip("Sounds/failS.wav");
