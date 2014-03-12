@@ -227,7 +227,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         tiempoActual += tiempoTranscurrido;
 
         fish.avanza();
-        if (!lost) {
+        if (!lost && fish.getMov()) {
             for (PipeSet medusa : medusas) {
                 medusa.setPosX(medusa.getPosX() - PipeSet.getSpeed());
             }
