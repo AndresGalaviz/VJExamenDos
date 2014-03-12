@@ -6,6 +6,7 @@
 
 package vjexamendos;
 
+import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,11 +16,11 @@ import javax.swing.ImageIcon;
 public class PipeSet {
     private Pipe upPipe, downPipe;
     private static ImageIcon upPipeIcon, downPipeIcon;
+    private static int speed = 2; 
     public PipeSet(int posX) {
-        int minPosY = 0, maxPosY = 10;
-        int posY = (int)(Math.random() * (maxPosY - minPosY)) + minPosY;
-        upPipe = new Pipe(posX, posY, upPipeIcon);
-        downPipe = new Pipe(posX, posY + Juego.distY, downPipeIcon);
+        upPipe = new Pipe(0, 0, upPipeIcon);
+        downPipe = new Pipe(0, 0, downPipeIcon);
+        reaparece(posX);
     }
     
     public void setPosX(int x) {
@@ -38,5 +39,31 @@ public class PipeSet {
     
     public int getPosY() {
         return upPipe.getPosY();
+    }
+    
+    public int getAncho() {
+        return upPipe.getAncho();
+    }
+    
+    public int getAlto() {
+        return upPipe.getAlto();
+    }
+    
+    public void reaparece(int posX) {
+        int minPosY = 0, maxPosY = 10;
+        int posY = (int)(Math.random() * (maxPosY - minPosY)) + minPosY;
+        upPipe.setPosX(posX);
+        downPipe.setPosX(posX);
+        upPipe.setPosY(posY);
+        downPipe.setPosY(posY + Juego.distY);
+    }
+    
+    public void draw (Graphics g, Juego juego) {
+        g.drawImage(upPipe.getImagenI(), upPipe.getPosX(), upPipe.getPosY(), juego);
+        g.drawImage(downPipe.getImagenI(), downPipe.getPosX(), downPipe.getPosY(), juego);
+    }
+    
+    public static int getSpeed() {
+        return speed;
     }
 }

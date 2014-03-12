@@ -117,6 +117,10 @@ public class Flappy extends Base {
         setPosY(Y);
     }
     
+    public boolean colisiona(PipeSet medusa) {
+        return false;
+    }
+    
     /**
      * Establece el valor de la gravedad
      * @param a un valor de tipo <code>int</code>
