@@ -81,7 +81,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         Base.setH(getHeight());
         
         distX = 500;
-        distY = 600;
+        distY = 650;
         
         fish = new Flappy(0, 0);
         fish.setX(getWidth()/5);
@@ -278,10 +278,14 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 // Atraviesa una medusa
                 if (0 <= dif && dif < PipeSet.getSpeed()) {
                     score++;
-                    if (score%50 == 0) {
+                    if (score%20 == 0) {
                         nivel++;
-                        distX -= 50;
-                        distY -= 20;
+                        if(distY >=300) {
+                            distX -= 50;
+                        }
+                        if(distY >=400) {
+                            distY -= 10;
+                        }
                     }
                 }
             }
