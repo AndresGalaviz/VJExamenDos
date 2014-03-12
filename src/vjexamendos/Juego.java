@@ -147,7 +147,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 State = STATE.GAME;
                 empezar = false;
             }
-            if (State == STATE.GAME) {
+            if (!(State == STATE.CHARSEL)) {
                 if (!pausa) {
                     //Actualiza la animacion
                     actualiza();
@@ -246,6 +246,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         // Colision flappy con JFrame
         if (fish.getPosY() + fish.getAlto() > getHeight()) {
             lost = true;
+            State = STATE.GAMEOVER;
             fish.setPosY(getHeight() - fish.getAlto());
         } else if (fish.getPosY() < 0) {
             fish.setInside(false);
@@ -266,6 +267,9 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         for (PipeSet medusa : medusas) {
             if (fish.colisiona(medusa)) {
                 lost = true;
+                
+               fish.setVy(0);
+
             } else {
                 int dif = (fish.getPosX() + fish.getAncho()/2) - (medusa.getPosX() - medusa.getAncho()/2);
                 // Atraviesa una medusa
@@ -323,7 +327,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      * @param g es el <code>objeto grafico</code> usado para dibujar.
      */
     public void paint1(Graphics g) {
-        if (State == STATE.GAME) {
+        if (!(State == STATE.CHARSEL)) {
             // Muestra en pantalla el cuadro actual de la animación
             g.drawImage(gameBG[index], 0, 0, this);    // Imagen de background
             if (fish != null && fish.getImagenI() != null) {
@@ -342,9 +346,13 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 g.drawImage(pause, fish.getPosX() + fish.getAncho()/2 - pause.getWidth(this),
                         fish.getPosY() + fish.getAlto()/2 - pause.getHeight(this), this);
             }
+            if(State == STATE.GAMEOVER) {
+                
+            } else {
+                g.setColor(Color.green);
+                g.drawString("Score: " + score, 20, 55);
+            }
 
-            g.setColor(Color.green);
-            g.drawString("Score: " + score, 20, 55);
         } else {
             charSel.render(g, this);
         }

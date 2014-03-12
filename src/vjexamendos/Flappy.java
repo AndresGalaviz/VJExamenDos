@@ -61,6 +61,7 @@ public class Flappy extends Base {
         if (mov) {
             setDoublePosY(getDoublePosY() - vy);
             vy -= g;
+            System.out.println("vy: " + vy);
         }
     }
     
@@ -112,6 +113,14 @@ public class Flappy extends Base {
     }
     
     /**
+     * Establece la velocidad en y
+     * @param v velocidad y
+     */
+    public void setVy(double v) {
+        vy = v;
+    }
+    
+    /**
      * Establece la posición inicial en Y
      * @param Y coordenada Y
      */
@@ -120,8 +129,10 @@ public class Flappy extends Base {
         setPosY(Y);
     }
     
+    
     public boolean colisiona(PipeSet medusa) {
-        return false;
+        
+        return getPerimetro().intersects(medusa.getUpPipe ().getPerimetro ()) || getPerimetro().intersects(medusa.getDownPipe ().getPerimetro ());
     }
     
     /**
