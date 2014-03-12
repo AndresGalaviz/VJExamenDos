@@ -91,10 +91,10 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         }
         gameBG = new Image[MAXINDEX];
         for (int i = 0; i < MAXINDEX; i++) {
-            gameBG[i] = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background/background" + i + ".jpg"));
+            gameBG[i] = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background" + i + ".jpg"));
         }
         pause = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/pause.png"));
-        charSelBG = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background/background.jpg"));
+        charSelBG = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/background0.jpg"));
         charSel = new CharSel(charSelBG);
         
         pausa = false;
