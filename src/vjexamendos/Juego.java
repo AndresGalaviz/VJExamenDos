@@ -259,8 +259,23 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             
             State = STATE.GAMEOVER;
             fish.setPosY(getHeight() - fish.getAlto());
-        } else if (fish.getPosY() < 0) {
-            fish.setInside(false);
+        } else if (fish.getPosY() <= 10) {
+                        fish.setPosY(20);
+            lost = true;
+            try {
+                leeArchivo();
+            } catch (IOException ex) {
+                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(score>maxScore) {
+                try {
+                    grabaArchivo();
+                } catch (IOException ex) {
+                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            State = STATE.GAMEOVER;
         } else {
             fish.setInside(true);
         }
