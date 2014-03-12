@@ -16,25 +16,38 @@ import java.awt.event.MouseListener;
  * @author Alberto
  */
 public class GameOver implements MouseListener {
-    private final Boton PLAY, RETURN, GAMEOVER;
+    private final Boton[] botones;
+    private final int[] startPosY, finalPosY;
     
     /**
      * Metodo constructor
      * @param background imagen de fondo
      */
     public GameOver() {
-        PLAY = new Boton(Base.getW()/3, 4*Base.getH()/5, "Images/Buttons/play.png");
-        PLAY.setPosX(PLAY.getPosX() - PLAY.getAncho()/2);
-        PLAY.setPosY(PLAY.getPosY() - PLAY.getAlto()/2);
-        RETURN = new Boton(Base.getW()/2, 5*Base.getH()/6, "Images/Buttons/quit.png");
-        RETURN.setPosX(RETURN.getPosX() - RETURN.getAncho()/2);
-        RETURN.setPosY(RETURN.getPosY() - RETURN.getAlto()/2);
-        GAMEOVER = new Boton(Base.getW()/2, 5*Base.getH()/6, "Images/Buttons/gameover.png");
-        GAMEOVER.setPosX(GAMEOVER.getPosX() - GAMEOVER.getAncho()/2);
-        GAMEOVER.setPosY(GAMEOVER.getPosY() - GAMEOVER.getAlto()/2);
+        botones = new Boton[3];
+        startPosY = new int[3];
+        finalPosY = new int[3];
+        botones[0] = new Boton(Base.getW()/3, 0, "Images/Buttons/restart.png");
+        botones[0].setPosX(botones[0].getPosX() - botones[0].getAncho()/2);
+        startPosY[0] = 
+        finalPosY[0] = 4*Base.getH()/5 - botones[0].getAlto()/2;
+        botones[1] = new Boton(2*Base.getW()/3, 0, "Images/Buttons/quit.png");
+        botones[1].setPosX(botones[1].getPosX() - botones[1].getAncho()/2);
+        startPosY[1] = 
+        finalPosY[1] = 4*Base.getH()/5 - botones[1].getAlto()/2;
+        botones[2] = new Boton(Base.getW()/2, 0, "Images/Buttons/gameover.png");
+        botones[2].setPosX(botones[2].getPosX() - botones[2].getAncho()/2);
+        startPosY[2] = Base.getW()/2 - botones[2].getAncho()/2;
+        finalPosY[2] = 5*Base.getH()/6 - botones[2].getAlto()/2;
+        
+        reset();
     }
     
     public void actualiza () {
+        
+    }
+    
+    public void reset () {
         
     }
     
@@ -45,9 +58,9 @@ public class GameOver implements MouseListener {
      */
     public void render(Graphics g, Juego juego) {
         
-        g.drawImage(RETURN.getImagenI(), RETURN.getPosX(), RETURN.getPosY(), juego);
-        g.drawImage(PLAY.getImagenI(), PLAY.getPosX(), PLAY.getPosY(), juego);
-        g.drawImage(GAMEOVER.getImagenI(), GAMEOVER.getPosX(), GAMEOVER.getPosY(), juego);
+        g.drawImage(botones[1].getImagenI(), botones[1].getPosX(), botones[1].getPosY(), juego);
+        g.drawImage(botones[0].getImagenI(), botones[0].getPosX(), botones[0].getPosY(), juego);
+        g.drawImage(botones[2].getImagenI(), botones[2].getPosX(), botones[2].getPosY(), juego);
     }
 
     /**
@@ -58,9 +71,9 @@ public class GameOver implements MouseListener {
     public void mouseClicked (MouseEvent e) {
         if (Juego.State == Juego.STATE.GAMEOVER) {
             
-            if (RETURN.contiene (e.getX(), e.getY())) {
+            if (botones[1].contiene (e.getX(), e.getY())) {
                 Juego.State = Juego.STATE.CHARSEL;
-            } if (PLAY.contiene (e.getX(), e.getY())) {
+            } if (botones[0].contiene (e.getX(), e.getY())) {
                 Juego.empezar = true;
             }
         
