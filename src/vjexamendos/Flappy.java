@@ -40,8 +40,6 @@ public class Flappy extends Base {
      */
     public void reaparecer() {
         setAnimacion(anim[Juego.jugador]);
-        System.out.println("--");
-        System.out.println(getAncho() + " " + getAlto());
         setPosX(x-getAncho()/2);
         setPosY(y-getAlto()/2);
         mov = false;

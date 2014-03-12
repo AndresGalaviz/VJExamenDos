@@ -142,11 +142,9 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 System.exit(0);
             }
             if (empezar) {
-                System.out.println("!!");
                 empezarJuego();
                 State = STATE.GAME;
                 empezar = false;
-                System.out.println("!!");
             }
             if (State == STATE.GAME) {
                 if (!pausa) {
