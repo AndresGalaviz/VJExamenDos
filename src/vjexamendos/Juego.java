@@ -99,6 +99,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         pause = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/pause.png"));
         charSelBG = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images/charSelectN.jpg"));
         charSel = new CharSel(charSelBG);
+        gameOver = new GameOver();
         pausa = false;
         sound = true;
         lost = false;
@@ -229,6 +230,10 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
 
         //Actualiza la animación en base al tiempo transcurrido
         fish.actualiza(tiempoTranscurrido);
+        
+        if (State == STATE.GAMEOVER) {
+            gameOver.actualiza();
+        }
     }
 
     /**

@@ -29,16 +29,16 @@ public class GameOver implements MouseListener {
         finalPosY = new int[3];
         botones[0] = new Boton(Base.getW()/3, 0, "Images/Buttons/restart.png");
         botones[0].setPosX(botones[0].getPosX() - botones[0].getAncho()/2);
-        startPosY[0] = 
+        startPosY[0] = Base.getH();
         finalPosY[0] = 4*Base.getH()/5 - botones[0].getAlto()/2;
         botones[1] = new Boton(2*Base.getW()/3, 0, "Images/Buttons/quit.png");
         botones[1].setPosX(botones[1].getPosX() - botones[1].getAncho()/2);
-        startPosY[1] = 
+        startPosY[1] = Base.getH();
         finalPosY[1] = 4*Base.getH()/5 - botones[1].getAlto()/2;
         botones[2] = new Boton(Base.getW()/2, 0, "Images/Buttons/gameover.png");
         botones[2].setPosX(botones[2].getPosX() - botones[2].getAncho()/2);
-        startPosY[2] = Base.getW()/2 - botones[2].getAncho()/2;
-        finalPosY[2] = 5*Base.getH()/6 - botones[2].getAlto()/2;
+        startPosY[2] = -botones[2].getAlto()/2;
+        finalPosY[2] = Base.getH()/4 - botones[2].getAlto()/2;
         
         reset();
     }
@@ -67,9 +67,9 @@ public class GameOver implements MouseListener {
      */
     public void render(Graphics g, Juego juego) {
         
-        g.drawImage(botones[1].getImagenI(), botones[1].getPosX(), botones[1].getPosY(), juego);
-        g.drawImage(botones[0].getImagenI(), botones[0].getPosX(), botones[0].getPosY(), juego);
-        g.drawImage(botones[2].getImagenI(), botones[2].getPosX(), botones[2].getPosY(), juego);
+        for (int i = 0; i < 3; i++) {
+            g.drawImage(botones[i].getImagenI(), botones[i].getPosX(), botones[i].getPosY(), juego);
+        }
     }
 
     /**
