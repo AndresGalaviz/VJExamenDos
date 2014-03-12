@@ -396,17 +396,16 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     @Override
     public void keyReleased(KeyEvent e) {}
 
-    @Override
+@Override
     public void mouseClicked(MouseEvent e) {
         if(!lost) {
-
             if (State == STATE.GAME) {
                 if (fish.getInside()) {
                     fish.lanzar();
                 }
-            } else {
-                charSel.mouseClicked(e);
             }
+        } else if (State == STATE.CHARSEL ) {
+            charSel.mouseClicked(e);
         } 
     }
 
