@@ -39,9 +39,9 @@ public class Flappy extends Base {
      * <code>Flappy</code> reaparece en su posicion original.
      */
     public void reaparecer() {
-        setPosX(x);
-        setPosY(y);
         setAnimacion(anim[Juego.jugador]);
+        setPosX(x-getAncho()/2);
+        setPosY(y-getAlto()/2);
         mov = false;
         inside = true;
     }
