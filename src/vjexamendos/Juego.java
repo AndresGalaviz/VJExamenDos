@@ -60,6 +60,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     public static int jugador = -1;
     public static boolean jugando = true;
     public static boolean empezar = false;
+
     
     /**
      * Método constructor de la clase <code>JFrameExamen</code>.
@@ -111,7 +112,8 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         setBackground(Color.white);
         //shoot = new SoundClip("Sounds/failS.wav");
         //bang = new SoundClip("Sounds/hoopS.wav");
-
+        shoot = new SoundClip("Sounds/failS.wav");
+        bang = new SoundClip("Sounds/hoopS.wav");
     }
 
     /**
@@ -213,7 +215,9 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         // Colision flappy con JFrame
         if (fish.getPosY() + fish.getAlto() > getHeight()) {
             lost = true;
-            
+            if (sound) {
+                shoot.play();
+            }
             
             
             
@@ -247,10 +251,13 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                     
                 }
                 lost = true;
+                if (sound) {
+                    shoot.play();
+                }
                 
 
             } else {
-                int dif = (fish.getPosX() + fish.getAncho()/2) - (medusa.getPosX() - medusa.getAncho()/2);
+                int dif = (fish.getPosX() + fish.getAncho()/2) - (medusa.getPosX() + medusa.getAncho()/2);
                 // Atraviesa una medusa
                 if (0 <= dif && dif < PipeSet.getSpeed()) {
                     score++;
@@ -259,9 +266,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                         if(distY >=300) {
                             distX -= 50;
                         }
-                        if(distY >=400) {
-                            distY -= 10;
-                        }
+
                     }
                 }
             }
@@ -336,6 +341,10 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
                 g.drawImage(pause, 0,0, this);
                 try {
                     leeArchivo();
+                    for(int i =0; i < arr.length; i+=2) {
+                        g.drawString (arr[i], i + getWidth()/2, i*30);
+                        g.drawString (arr[i+1], i + getWidth()/2 + 60, i*30);
+                    }  
                 } catch (IOException ex) {
                     Logger.getLogger (Juego.class.getName()).log (Level.SEVERE, null, ex);
                 }
@@ -369,9 +378,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         }
         String dato = fileIn.readLine();
         arr = dato.split(",");
-        for(int i =0; i < arr.length; i++) {
-            
-        }   
+ 
         fileIn.close();
 
     }
@@ -388,15 +395,20 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      */
     @Override
     public void keyPressed(KeyEvent e) {
+
         if(!lost) {
             if (State == STATE.GAME) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE && fish.getInside()) {
                     fish.lanzar();
+                    if (sound) {
+                        bang.play();
+                    }
+                    
                 } else if (e.getKeyCode() == KeyEvent.VK_S) {
                     sound = !sound;
                 } else if(e.getKeyCode () == KeyEvent.VK_F) {
                     pausa = !pausa;
-                }
+                } 
             }
         } else if(State == STATE.GAMEOVER) {
             gameOver.keyPressed(e);
@@ -417,6 +429,9 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         if(!lost && State == STATE.GAME) {
             if (fish.getInside()) {
                 fish.lanzar();
+                if (sound) {
+                    bang.play();
+                }            
             }
         } else if (State == STATE.CHARSEL ) {
             charSel.mouseClicked(e);
