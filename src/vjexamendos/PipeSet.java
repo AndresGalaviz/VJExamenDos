@@ -7,6 +7,9 @@
 package vjexamendos;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,7 +18,8 @@ import javax.swing.ImageIcon;
  */
 public class PipeSet {
     private Pipe upPipe, downPipe;
-    private static ImageIcon upPipeIcon, downPipeIcon;
+    private static ImageIcon upPipeIcon = getUpIcon(),
+             downPipeIcon = getDownIcon();
     private static int speed = 2; 
     public PipeSet(int posX) {
         upPipe = new Pipe(0, 0, upPipeIcon);
@@ -50,7 +54,7 @@ public class PipeSet {
     }
     
     public void reaparece(int posX) {
-        int minPosY = 0, maxPosY = 10;
+        int minPosY = -50, maxPosY = -10;
         int posY = (int)(Math.random() * (maxPosY - minPosY)) + minPosY;
         upPipe.setPosX(posX);
         downPipe.setPosX(posX);
@@ -67,5 +71,17 @@ public class PipeSet {
     
     public static int getSpeed() {
         return speed;
+    }
+    
+    private static ImageIcon getUpIcon() {
+        URL url = PipeSet.class.getResource("Images/pipe0.png");
+        Image image = Toolkit.getDefaultToolkit().getImage(url);
+        return new ImageIcon(image);
+    }
+    
+    private static ImageIcon getDownIcon() {
+        URL url = PipeSet.class.getResource("Images/pipe1.png");
+        Image image = Toolkit.getDefaultToolkit().getImage(url);
+        return new ImageIcon(image);
     }
 }
