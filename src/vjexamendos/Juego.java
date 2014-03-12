@@ -90,7 +90,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         fish.setY(getHeight()/2);
         medusas = new ArrayList();
         for (int i = 0; i < 2*getWidth()/distX; i++) {
-            medusas.add(new PipeSet(2*getWidth() + i*distX));
+            medusas.add(new PipeSet(0));
         }
         gameBG = new Image[MAXINDEX];
         for (int i = 0; i < MAXINDEX; i++) {
@@ -288,6 +288,10 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     private void empezarJuego() {
         index = (int)(Math.random() * MAXINDEX);
         fish.reaparecer();
+        for (int i = 0; i < medusas.size(); i++) {
+            PipeSet medusa = medusas.get(i);
+            medusa.setPosX(2*getWidth() + i*distX);
+        }
         lost = false;
         score = 0;
         nivel = 0;
@@ -398,11 +402,9 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
 
 @Override
     public void mouseClicked(MouseEvent e) {
-        if(!lost) {
-            if (State == STATE.GAME) {
-                if (fish.getInside()) {
-                    fish.lanzar();
-                }
+        if(!lost && State == STATE.GAME) {
+            if (fish.getInside()) {
+                fish.lanzar();
             }
         } else if (State == STATE.CHARSEL ) {
             charSel.mouseClicked(e);
