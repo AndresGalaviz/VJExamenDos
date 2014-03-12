@@ -54,6 +54,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
     public static int nivel;
     public static int jugador = -1;
     public static boolean jugando = true;
+    public static boolean empezar = false;
     
     /**
      * Método constructor de la clase <code>JFrameExamen</code>.
@@ -130,6 +131,10 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         //Ciclo principal del Applet. Actualiza y despliega en pantalla la 
         //animacion hasta que el Applet sea cerrado
         while (true) {
+            if (!jugando) {
+                setVisible(false);
+                System.exit(0);
+            }
             if (!pausa) {
                 //Actualiza la animacion
                 actualiza();
@@ -209,8 +214,10 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         tiempoActual += tiempoTranscurrido;
 
         fish.avanza();
-        for (PipeSet medusa : medusas) {
-            medusa.setPosX(medusa.getPosX() - PipeSet.getSpeed());
+        if (!lost) {
+            for (PipeSet medusa : medusas) {
+                medusa.setPosX(medusa.getPosX() - PipeSet.getSpeed());
+            }
         }
 
         //Actualiza la animación en base al tiempo transcurrido
@@ -225,6 +232,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         // Colision flappy con JFrame
         if (fish.getPosY() + fish.getAlto() > getHeight()) {
             lost = true;
+            fish.setPosY(getHeight() - fish.getAlto());
         } else if (fish.getPosY() < 0) {
             fish.setInside(false);
         } else {
@@ -301,7 +309,7 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             }
 
             for (PipeSet medusa : medusas) {
-                if (medusa != null && medusa.getImageIcon() != null) {
+                if (medusa != null) {
                     medusa.draw(g, this);
                 }
             }
@@ -309,7 +317,8 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
             g.setFont(new Font("default", Font.BOLD, 16));
             if (pausa) { // mensaje de pausa
                 g.setColor(Color.white);
-                g.drawImage(pause, canasta.getPosX() - 10, canasta.getPosY() - 37, this);
+                g.drawImage(pause, fish.getPosX() + fish.getAncho()/2 - pause.getWidth(this),
+                        fish.getPosY() + fish.getAlto()/2 - pause.getHeight(this), this);
             }
 
             g.setColor(Color.green);
@@ -330,34 +339,16 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            //canasta.serBrinco(true);
-        }        
+        if (State == STATE.GAME) {
+            if (e.getKeyCode() == KeyEvent.VK_SPACE && fish.getInside()) {
+                fish.lanzar();
+            } else if (e.getKeyCode() == KeyEvent.VK_P) {
+                pausa = !pausa;
+            } else if (e.getKeyCode() == KeyEvent.VK_S) {
+                sound = !sound;
+            }
+        }
         
-        
-//        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//            canasta.setMoveLeft(true);
-//        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//            canasta.setMoveRight(true);
-//        } else if (e.getKeyCode() == KeyEvent.VK_P) {
-//            if (!pausa) {
-//                pausa = true;
-//                flappy.freeze();
-//            } else {
-//                pausa = false;
-//                flappy.unfreeze();
-//            }
-//        } else if (e.getKeyCode() == KeyEvent.VK_C) {
-//
-//            try {
-//                leeArchivo();
-//            } catch (IOException ex) {
-//                Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } else if (e.getKeyCode() == KeyEvent.VK_S) {
-//            sound = !sound;
-//        }
-
     }
 
     /**
@@ -366,71 +357,29 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
      * @param e
      */
     @Override
-    public void keyReleased(KeyEvent e) {
-        
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            //canasta.serBrinco(false);
-        }
-//        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//            canasta.setMoveLeft(false);
-//        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//            canasta.setMoveRight(false);
-//        } 
-//        else if (e.getKeyCode() == KeyEvent.VK_G) {
-//            if (!instrucciones) {
-//                try {
-//                    grabaArchivo();
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//
-//        } 
-//        else if (e.getKeyCode() == KeyEvent.VK_I) {
-//            if (!instrucciones) {
-//                instrucciones = true;
-//                flappy.freeze();
-//            } else {
-//                instrucciones = false;
-//                flappy.unfreeze();
-//            }
-//
-//        }
-    }
+    public void keyReleased(KeyEvent e) {}
 
-    /**
-     * Inicia el movimiento de <code>pelota</code>.
-     *
-     * @param e
-     */
     @Override
     public void mouseClicked(MouseEvent e) {
-        
-        
-        //canasta.serBrinco(true);
-        
-        
-//        if (!flappy.getMov() && flappy.contiene(e.getX(), e.getY())) {
-//            flappy.lanzar();
-//        }
+        if (State == STATE.GAME) {
+            if (fish.getInside()) {
+                fish.lanzar();
+            }
+        } else {
+            charSel.mouseClicked(e);
+        }
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        //canasta.serBrinco(false);
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
 }

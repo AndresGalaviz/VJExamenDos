@@ -59,8 +59,10 @@ public class PipeSet {
     }
     
     public void draw (Graphics g, Juego juego) {
-        g.drawImage(upPipe.getImagenI(), upPipe.getPosX(), upPipe.getPosY(), juego);
-        g.drawImage(downPipe.getImagenI(), downPipe.getPosX(), downPipe.getPosY(), juego);
+        if (upPipe != null && downPipe != null) {
+            g.drawImage(upPipe.getImagenI(), upPipe.getPosX(), upPipe.getPosY(), juego);
+            g.drawImage(downPipe.getImagenI(), downPipe.getPosX(), downPipe.getPosY(), juego);
+        }
     }
     
     public static int getSpeed() {

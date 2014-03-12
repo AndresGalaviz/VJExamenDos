@@ -72,7 +72,7 @@ public class CharSel implements MouseListener {
             
             if (PLAY.contiene(e.getX(), e.getY())) {
                 if (Juego.jugador != -1) {
-                    Juego.changeToGame = true;
+                    Juego.empezar = true;
                 }
             } else if (QUIT.contiene (e.getX(), e.getY())) {
                 Juego.jugando = false;
