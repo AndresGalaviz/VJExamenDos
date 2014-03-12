@@ -61,7 +61,7 @@ public class Flappy extends Base {
         if (mov) {
             setDoublePosY(getDoublePosY() - vy);
             vy -= g;
-            System.out.println("vy: " + vy);
+            
         }
     }
     

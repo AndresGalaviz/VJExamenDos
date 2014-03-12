@@ -266,9 +266,11 @@ public class Juego extends JFrame implements Runnable, KeyListener, MouseListene
         // Colision fish con medusa
         for (PipeSet medusa : medusas) {
             if (fish.colisiona(medusa)) {
+                if(!lost) {
+                    fish.setVy(0);
+                }
                 lost = true;
                 
-               fish.setVy(0);
 
             } else {
                 int dif = (fish.getPosX() + fish.getAncho()/2) - (medusa.getPosX() - medusa.getAncho()/2);
