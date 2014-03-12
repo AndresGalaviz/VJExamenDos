@@ -54,7 +54,7 @@ public class PipeSet {
     }
     
     public void reaparece(int posX) {
-        int minPosY = -150*(Juego.nivel+1), maxPosY = -10*(Juego.nivel+1);
+        int minPosY = -150-Juego.nivel*50, maxPosY = -10+Juego.nivel*100;
         int posY = (int)(Math.random() * (maxPosY - minPosY)) + minPosY;
         upPipe.setPosX(posX);
         downPipe.setPosX(posX);
